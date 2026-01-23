@@ -1,15 +1,14 @@
-use bevy::prelude::*;
+use crate::prelude::*;
 use bevy::window::PrimaryWindow;
-use crate::{z_order, Collider};
 
-pub fn create_level(
+pub fn spawn_level(
     mut commands: Commands,
     windows: Query<&Window, With<PrimaryWindow>>,
 ) {
     let window = windows.single().unwrap();
-    let half_height = window.resolution.height() * 0.5;
-    spawn_wall(&mut commands, half_height + 10.0);
-    spawn_wall(&mut commands, -half_height - 10.0);
+    let half_height = window.resolution.height() * 0.5 + 6.0;
+    spawn_wall(&mut commands, half_height );
+    spawn_wall(&mut commands, -half_height );
 
     spawn_divider(
         &mut commands,
@@ -31,7 +30,7 @@ fn spawn_wall(
             custom_size: Some(sizes),
             ..default()
         },
-        Transform::from_xyz(0.0, y_position, z_order::WALLS)
+        Transform::from_xyz(0.0, y_position, z_order::WALL),
     ));
 }
 
