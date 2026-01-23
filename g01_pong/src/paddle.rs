@@ -6,7 +6,7 @@ const PADDLE_SIZE: Vec2 = Vec2::new(25.0, 125.0);
 #[derive(Component)]
 pub struct Paddle;
 
-#[derive(Component)]
+#[derive(Component, Eq, PartialEq)]
 pub enum Side {
     Left,
     Right,

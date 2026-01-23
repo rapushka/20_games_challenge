@@ -11,6 +11,7 @@ mod prelude;
 mod arena;
 mod paddle;
 mod collision_detection;
+mod input;
 
 fn main() -> AppExit {
     App::new()
@@ -22,6 +23,11 @@ fn main() -> AppExit {
             arena::spawn_level,
             paddle::spawn_paddles,
         ).chain())
+
+        .add_systems(Update, (
+            input::read_players_input,
+        ).chain())
+
         .run()
 }
 
