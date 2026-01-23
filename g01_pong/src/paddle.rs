@@ -11,6 +11,12 @@ const PADDLE_MOVEMENT_SPEED: f32 = 400.0;
 #[derive(Component)]
 pub struct Paddle;
 
+#[derive(Component, Copy, Clone)]
+pub struct YBounds {
+    min: f32,
+    max: f32,
+}
+
 #[derive(Component, Eq, PartialEq)]
 pub enum Side {
     Left,
@@ -18,12 +24,13 @@ pub enum Side {
 }
 
 pub fn move_paddles(
-    paddles: Query<(&mut Transform, &Movement), With<Paddle>>,
+    paddles: Query<(&mut Transform, &Movement, &YBounds), With<Paddle>>,
     time: Res<Time>,
 ) {
     let delta_time = time.delta_secs();
 
-    for (mut transform, movement) in paddles {
-        transform.translation.y += movement.y() * PADDLE_MOVEMENT_SPEED * delta_time;
+    for (mut transform, movement, y_bounds) in paddles {
+        let y = transform.translation.y + (movement.y() * PADDLE_MOVEMENT_SPEED * delta_time);
+        transform.translation.y = y.clamp(y_bounds.min, y_bounds.max);
     }
 }
