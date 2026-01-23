@@ -26,6 +26,7 @@ fn main() -> AppExit {
 
         .add_systems(Update, (
             input::read_players_input,
+            paddle::move_paddles,
         ).chain())
 
         .run()

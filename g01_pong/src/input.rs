@@ -3,8 +3,14 @@ use crate::prelude::*;
 
 #[derive(Component)]
 #[component(storage = "SparseSet")]
-pub struct Move {
+pub struct Movement {
     y: f32,
+}
+
+impl Movement {
+    pub fn y(&self) -> f32 {
+        self.y
+    }
 }
 
 pub fn read_players_input(
@@ -37,9 +43,9 @@ fn read_input(
 
         let mut entity = commands.entity(e);
         if direction != 0.0 {
-            entity.insert(Move { y: direction });
+            entity.insert(Movement { y: direction });
         } else {
-            entity.remove::<Move>();
+            entity.remove::<Movement>();
         }
     }
 }
