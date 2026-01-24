@@ -12,6 +12,7 @@ mod arena;
 mod paddle;
 mod collision_detection;
 mod input;
+mod ball;
 
 fn main() -> AppExit {
     App::new()
@@ -22,6 +23,7 @@ fn main() -> AppExit {
             spawn_camera,
             arena::spawn_level,
             paddle::spawn_paddles,
+            ball::spawn,
         ).chain())
 
         .add_systems(Update, (
