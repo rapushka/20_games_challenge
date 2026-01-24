@@ -8,7 +8,7 @@ pub struct Collider {
 }
 
 impl Collider {
-    pub fn new(sizes: Vec2, center: Vec2) -> Collider {
+    pub fn new(center: Vec2, sizes: Vec2) -> Collider {
         Collider {
             half_size: sizes / 2.0,
             center,

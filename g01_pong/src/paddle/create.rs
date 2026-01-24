@@ -1,7 +1,6 @@
-use bevy::math::bounding::Aabb2d;
-use bevy::window::PrimaryWindow;
-use crate::paddle::{YBounds, Paddle, Side, PADDLE_SIZE};
+use crate::paddle::{Paddle, Side, YBounds, PADDLE_SIZE};
 use crate::prelude::*;
+use bevy::window::PrimaryWindow;
 
 pub fn spawn_paddles(
     mut commands: Commands,
