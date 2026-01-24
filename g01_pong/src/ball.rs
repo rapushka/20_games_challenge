@@ -24,3 +24,15 @@ pub fn spawn(
             .with_scale(Vec2::splat(BALL_DIAMETER).extend(1.0)),
     ));
 }
+
+pub fn update_velocity(
+    mut transforms: Query<(&mut Transform, &Velocity)>,
+    time: Res<Time>,
+) {
+    let delta_time = time.delta_secs();
+
+    for (mut transform, velocity) in &mut transforms {
+        transform.translation.x += velocity.x * delta_time;
+        transform.translation.y += velocity.y * delta_time;
+    }
+}
