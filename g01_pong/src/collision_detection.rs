@@ -23,7 +23,7 @@ pub fn check_collisions(
     walls: Query<&Collider, Without<Ball>>,
 ) {
     for (mut ball_velocity, ball_collider) in balls {
-        for wall_collider in &walls { // TODO: why `&` is here?
+        for wall_collider in &walls {
             let collision = try_collide(ball_collider.aabb(), wall_collider.aabb());
 
             let Some(collision) = collision else {
