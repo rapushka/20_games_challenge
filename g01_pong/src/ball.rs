@@ -21,10 +21,7 @@ pub fn spawn(
     commands.spawn((
         Ball,
         Velocity(INITIAL_BALL_DIRECTION.normalize() * BALL_SPEED),
-        Collider(Aabb2d::new(
-            vec2(0.0, 0.0),
-            sizes / 2.0,
-        )),
+        Collider::new(vec2(0.0, 0.0), sizes),
         Sprite {
             color: Color::srgb(0.9, 0.9, 0.9),
             custom_size: Some(sizes),

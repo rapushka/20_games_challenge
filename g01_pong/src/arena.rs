@@ -27,10 +27,7 @@ fn spawn_wall(
     let transform = Transform::from_xyz(0.0, y_position, z_order::WALL);
 
     commands.spawn((
-        Collider(Aabb2d::new(
-            transform.translation.truncate(),
-            sizes / 2.0,
-        )),
+        Collider::new(transform.translation.truncate(), sizes),
         Sprite {
             color: Color::srgb(0.9, 0.9, 0.9),
             custom_size: Some(sizes),

@@ -2,8 +2,8 @@ use bevy::math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume};
 use crate::ball::{Ball, Velocity};
 use crate::prelude::*;
 
-#[derive(Component)]
-pub struct Collider(pub Aabb2d);
+pub use collider::*;
+mod collider;
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone)]
 enum Collision {
@@ -13,14 +13,14 @@ enum Collision {
     Bottom,
 }
 
-pub fn check_for_collisions(
+pub fn check_collisions(
     mut commands: Commands,
     balls: Query<(&Transform, &mut Velocity, &Collider), With<Ball>>,
     walls: Query<(Entity, &Transform, &Collider), Without<Ball>>,
 ) {
     for (ball_transform, mut ball_velocity, ball_collider) in balls {
         for (wall_entity, wall_transform, wall_collider) in &walls { // TODO: why `&` is here?
-            let collision = try_collide(ball_collider.0, wall_collider.0);
+            let collision = try_collide(ball_collider.aabb(), wall_collider.aabb());
         }
     }
 }

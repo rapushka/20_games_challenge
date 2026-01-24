@@ -30,6 +30,8 @@ fn main() -> AppExit {
             input::read_players_input,
             paddle::move_paddles,
             ball::update_velocity,
+            collision_detection::update_colliders,
+            collision_detection::check_collisions,
         ).chain())
 
         .run()

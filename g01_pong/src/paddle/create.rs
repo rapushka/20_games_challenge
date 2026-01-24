@@ -30,10 +30,7 @@ fn create_paddle(
         Paddle,
         y_bounds,
         side,
-        Collider(Aabb2d::new(
-            transform.translation.truncate(),
-            sizes / 2.0,
-        )),
+        Collider::new(transform.translation.truncate(), sizes),
         Sprite {
             color: Color::srgb(0.9, 0.9, 0.9),
             custom_size: Some(sizes),
