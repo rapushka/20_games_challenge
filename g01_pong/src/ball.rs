@@ -1,3 +1,4 @@
+use bevy::math::bounding::Aabb2d;
 use crate::prelude::*;
 
 const BALL_DIAMETER: f32 = 30.;
@@ -15,13 +16,21 @@ pub fn spawn(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
+    let sizes = vec2(BALL_DIAMETER, BALL_DIAMETER);
+
     commands.spawn((
         Ball,
         Velocity(INITIAL_BALL_DIRECTION.normalize() * BALL_SPEED),
-        Mesh2d(meshes.add(Circle::default())),
-        MeshMaterial2d(materials.add(Color::srgb(1.0, 1.0, 1.0))),
-        Transform::from_xyz(0.0, 0.0, z_order::BALL)
-            .with_scale(Vec2::splat(BALL_DIAMETER).extend(1.0)),
+        Collider(Aabb2d::new(
+            vec2(0.0, 0.0),
+            sizes / 2.0,
+        )),
+        Sprite {
+            color: Color::srgb(0.9, 0.9, 0.9),
+            custom_size: Some(sizes),
+            ..default()
+        },
+        Transform::from_xyz(0.0, 0.0, z_order::BALL),
     ));
 }
 

@@ -1,3 +1,4 @@
+use bevy::math::bounding::Aabb2d;
 use crate::prelude::*;
 use bevy::window::PrimaryWindow;
 
@@ -7,8 +8,8 @@ pub fn spawn_level(
 ) {
     let window = windows.single().unwrap();
     let half_height = window.resolution.height() * 0.5 + 6.0;
-    spawn_wall(&mut commands, half_height );
-    spawn_wall(&mut commands, -half_height );
+    spawn_wall(&mut commands, half_height);
+    spawn_wall(&mut commands, -half_height);
 
     spawn_divider(
         &mut commands,
@@ -23,14 +24,19 @@ fn spawn_wall(
     y_position: f32,
 ) {
     let sizes = vec2(10_000.0, 25.0);
+    let transform = Transform::from_xyz(0.0, y_position, z_order::WALL);
+
     commands.spawn((
-        Collider(sizes),
+        Collider(Aabb2d::new(
+            transform.translation.truncate(),
+            sizes / 2.0,
+        )),
         Sprite {
             color: Color::srgb(0.9, 0.9, 0.9),
             custom_size: Some(sizes),
             ..default()
         },
-        Transform::from_xyz(0.0, y_position, z_order::WALL),
+        transform,
     ));
 }
 

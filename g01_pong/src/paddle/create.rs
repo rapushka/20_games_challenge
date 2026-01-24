@@ -1,3 +1,4 @@
+use bevy::math::bounding::Aabb2d;
 use bevy::window::PrimaryWindow;
 use crate::paddle::{YBounds, Paddle, Side, PADDLE_SIZE};
 use crate::prelude::*;
@@ -22,16 +23,22 @@ fn create_paddle(
     x_position: f32,
     side: Side,
 ) {
+    let sizes = PADDLE_SIZE;
+    let transform = Transform::from_xyz(x_position, 0.0, z_order::PADDLE);
+
     commands.spawn((
         Paddle,
         y_bounds,
         side,
-        Collider(PADDLE_SIZE),
+        Collider(Aabb2d::new(
+            transform.translation.truncate(),
+            sizes / 2.0,
+        )),
         Sprite {
             color: Color::srgb(0.9, 0.9, 0.9),
-            custom_size: Some(PADDLE_SIZE),
+            custom_size: Some(sizes),
             ..default()
         },
-        Transform::from_xyz(x_position, 0.0, z_order::PADDLE),
+        transform,
     ));
 }
