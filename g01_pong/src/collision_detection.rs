@@ -13,14 +13,34 @@ enum Collision {
     Bottom,
 }
 
+struct ShouldReflect {
+    x: bool,
+    y: bool,
+}
+
 pub fn check_collisions(
-    mut commands: Commands,
-    balls: Query<(&Transform, &mut Velocity, &Collider), With<Ball>>,
-    walls: Query<(Entity, &Transform, &Collider), Without<Ball>>,
+    balls: Query<(&mut Velocity, &Collider), With<Ball>>,
+    walls: Query<&Collider, Without<Ball>>,
 ) {
-    for (ball_transform, mut ball_velocity, ball_collider) in balls {
-        for (wall_entity, wall_transform, wall_collider) in &walls { // TODO: why `&` is here?
+    for (mut ball_velocity, ball_collider) in balls {
+        for wall_collider in &walls { // TODO: why `&` is here?
             let collision = try_collide(ball_collider.aabb(), wall_collider.aabb());
+
+            let Some(collision) = collision else {
+                continue;
+            };
+
+            // trigger BallCollided?
+
+            let reflect = reflect(collision, ball_velocity.0);
+
+            if reflect.x {
+                ball_velocity.x *= -1.0;
+            }
+
+            if reflect.y {
+                ball_velocity.y *= -1.0;
+            }
         }
     }
 }
@@ -38,4 +58,20 @@ fn try_collide(ball: Aabb2d, collider: Aabb2d) -> Option<Collision> {
     } else if offset.y > 0.0 { Collision::Top } else { Collision::Bottom };
 
     Some(side)
+}
+
+fn reflect(collision: Collision, velocity: Vec2) -> ShouldReflect {
+    let mut reflect = ShouldReflect {
+        x: false,
+        y: false,
+    };
+
+    match collision {
+        Collision::Left => reflect.x = velocity.x > 0.0,
+        Collision::Right => reflect.x = velocity.x < 0.0,
+        Collision::Top => reflect.y = velocity.y < 0.0,
+        Collision::Bottom => reflect.y = velocity.y > 0.0,
+    };
+
+    reflect
 }
