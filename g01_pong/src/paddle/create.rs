@@ -8,7 +8,7 @@ pub fn spawn_paddles(
 ) {
     let window = windows.single().unwrap();
     let half_width = window.resolution.width() * 0.5 - 100.0;
-    let half_height = window.resolution.height() * 0.5 - 100.0;
+    let half_height = window.resolution.height() * 0.5 - 70.0;
 
     let bounds = YBounds { min: -half_height, max: half_height };
 
