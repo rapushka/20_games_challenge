@@ -1,9 +1,11 @@
-use crate::ball::{Ball, ResetBall};
+use crate::ball::Ball;
 use crate::bounds::Bounds;
+use crate::paddle::Side;
 use crate::prelude::*;
+use crate::scoring::Scored;
 
 pub fn check_scored_ball(
-    mut reset_ball: MessageWriter<ResetBall>,
+    mut scored_message: MessageWriter<Scored>,
     balls: Query<(&Transform, &Bounds), With<Ball>>,
 ) {
     for (transform, bounds) in balls {
@@ -11,6 +13,7 @@ pub fn check_scored_ball(
             continue;
         }
 
-        reset_ball.write(ResetBall);
+        let side = if transform.translation.x < 0.0 { Side::Right } else { Side::Left };
+        scored_message.write(Scored(side));
     }
 }

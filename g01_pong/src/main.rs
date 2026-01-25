@@ -14,6 +14,7 @@ mod collision_detection;
 mod input;
 mod ball;
 mod bounds;
+mod scoring;
 
 fn main() -> AppExit {
     App::new()
@@ -21,6 +22,7 @@ fn main() -> AppExit {
         .insert_resource(ClearColor(Color::srgb(0.1, 0.1, 0.1)))
 
         .add_message::<ball::ResetBall>()
+        .add_message::<scoring::Scored>()
 
         .add_systems(Startup, (
             spawn_camera,
@@ -35,6 +37,7 @@ fn main() -> AppExit {
             ball::update_velocity,
             ball::reset_ball,
             ball::check_scored_ball,
+            scoring::on_scored,
             collision_detection::update_colliders,
             collision_detection::check_collisions,
         ).chain())
