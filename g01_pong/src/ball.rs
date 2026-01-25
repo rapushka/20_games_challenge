@@ -1,9 +1,9 @@
-use bevy::math::bounding::Aabb2d;
+use std::f32::consts::PI;
 use crate::prelude::*;
+use rand::prelude::*;
 
 const BALL_DIAMETER: f32 = 30.;
 const BALL_SPEED: f32 = 400.0;
-const INITIAL_BALL_DIRECTION: Vec2 = Vec2::new(0.5, -0.5);
 
 #[derive(Component)]
 pub struct Ball;
@@ -13,14 +13,13 @@ pub struct Velocity(pub Vec2);
 
 pub fn spawn(
     mut commands: Commands,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
     let sizes = vec2(BALL_DIAMETER, BALL_DIAMETER);
+    let direction = random_direction();
 
     commands.spawn((
         Ball,
-        Velocity(INITIAL_BALL_DIRECTION.normalize() * BALL_SPEED),
+        Velocity(direction * BALL_SPEED),
         Collider::new(vec2(0.0, 0.0), sizes),
         Sprite {
             color: Color::srgb(0.9, 0.9, 0.9),
@@ -41,4 +40,13 @@ pub fn update_velocity(
         transform.translation.x += velocity.x * delta_time;
         transform.translation.y += velocity.y * delta_time;
     }
+}
+
+fn random_direction() -> Vec2 {
+    let mut rng = rand::rng();
+    let random_number = rng.random_range(0.0..1.0);
+    let random_angle: f32 = random_number * PI * 2.0;
+
+    Vec2::new(random_angle.cos(), random_angle.sin())
+        .normalize()
 }

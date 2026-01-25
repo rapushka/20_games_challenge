@@ -20,10 +20,7 @@ impl Collider {
     }
 
     pub fn aabb(&self) -> Aabb2d {
-        Aabb2d::new(
-            self.center,
-            self.half_size,
-        )
+        Aabb2d::new(self.center, self.half_size)
     }
 }
 
