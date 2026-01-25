@@ -1,6 +1,7 @@
-use crate::paddle::{Paddle, Side, YBounds, PADDLE_SIZE};
+use crate::paddle::{Paddle, Side, PADDLE_SIZE};
 use crate::prelude::*;
 use bevy::window::PrimaryWindow;
+use crate::bounds::YBounds;
 
 pub fn spawn_paddles(
     mut commands: Commands,
@@ -10,7 +11,7 @@ pub fn spawn_paddles(
     let half_width = window.resolution.width() * 0.5 - 100.0;
     let half_height = window.resolution.height() * 0.5 - 70.0;
 
-    let bounds = YBounds { min: -half_height, max: half_height };
+    let bounds = YBounds::new_square(half_height);
 
     create_paddle(&mut commands, bounds, -half_width, Side::Left);
     create_paddle(&mut commands, bounds, half_width, Side::Right);

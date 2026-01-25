@@ -1,6 +1,7 @@
 use crate::prelude::*;
 
 pub use create::*;
+use crate::bounds::YBounds;
 use crate::input::Movement;
 
 mod create;
@@ -10,12 +11,6 @@ const PADDLE_MOVEMENT_SPEED: f32 = 400.0;
 
 #[derive(Component)]
 pub struct Paddle;
-
-#[derive(Component, Copy, Clone)]
-pub struct YBounds {
-    min: f32,
-    max: f32,
-}
 
 #[derive(Component, Eq, PartialEq)]
 pub enum Side {
@@ -31,6 +26,6 @@ pub fn move_paddles(
 
     for (mut transform, movement, y_bounds) in paddles {
         let y = transform.translation.y + (movement.y() * PADDLE_MOVEMENT_SPEED * delta_time);
-        transform.translation.y = y.clamp(y_bounds.min, y_bounds.max);
+        transform.translation.y = y_bounds.clamp(y);
     }
 }

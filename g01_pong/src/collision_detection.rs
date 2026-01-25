@@ -1,8 +1,10 @@
 use bevy::math::bounding::{Aabb2d, BoundingVolume, IntersectsVolume};
-use crate::ball::{Ball, Velocity};
+use crate::ball::Ball;
 use crate::prelude::*;
+use crate::ball::Velocity;
 
 pub use collider::*;
+
 mod collider;
 
 #[derive(Debug, PartialEq, Eq, Copy, Clone)]
