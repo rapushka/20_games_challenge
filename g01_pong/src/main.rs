@@ -19,7 +19,9 @@ mod scoring;
 fn main() -> AppExit {
     App::new()
         .add_plugins(DefaultPlugins)
+
         .insert_resource(ClearColor(Color::srgb(0.1, 0.1, 0.1)))
+        .init_resource::<scoring::CurrentScore>()
 
         .add_message::<ball::ResetBall>()
         .add_message::<scoring::Scored>()
