@@ -25,7 +25,7 @@ impl Bounds {
         source.clamp(self.min.y, self.max.y)
     }
 
-    pub fn clamp_x(&self, source: f32) -> f32 {
-        source.clamp(self.min.x, self.max.x)
+    pub fn inside_x(&self, value: f32) -> bool {
+        self.min.x < value && self.max.x > value
     }
 }

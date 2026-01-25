@@ -2,6 +2,7 @@ use std::f32::consts::PI;
 use bevy::window::PrimaryWindow;
 use rand::Rng;
 use crate::ball::*;
+use crate::bounds::Bounds;
 
 const BALL_DIAMETER: f32 = 30.;
 const BALL_SPEED: f32 = 400.0;
@@ -17,7 +18,7 @@ pub fn spawn(
 ) {
     let window = windows.single().unwrap();
     let sizes = vec2(BALL_DIAMETER, BALL_DIAMETER);
-    let offscreen = window.resolution.width() * 0.5 + 100.0;
+    let offscreen = window.resolution.width() * 0.5 + 20.0;
 
     commands.spawn((
         Ball,
@@ -28,6 +29,7 @@ pub fn spawn(
             custom_size: Some(sizes),
             ..default()
         },
+        Bounds::new_square_x(offscreen),
         Transform::default(),
     ));
 
