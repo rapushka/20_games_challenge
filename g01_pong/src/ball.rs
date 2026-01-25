@@ -4,30 +4,48 @@ use rand::prelude::*;
 
 const BALL_DIAMETER: f32 = 30.;
 const BALL_SPEED: f32 = 400.0;
+const BALL_SPAWN_POINT: Vec3 = vec3(0.0, 0.0, z_order::BALL);
 
 #[derive(Component)]
 pub struct Ball;
 
-#[derive(Component, Deref, DerefMut)]
+#[derive(Component, Deref, DerefMut, Default)]
 pub struct Velocity(pub Vec2);
+
+#[derive(Message)]
+pub struct ResetBall;
 
 pub fn spawn(
     mut commands: Commands,
+    mut message_writer: MessageWriter<ResetBall>,
 ) {
     let sizes = vec2(BALL_DIAMETER, BALL_DIAMETER);
-    let direction = random_direction();
 
     commands.spawn((
         Ball,
-        Velocity(direction * BALL_SPEED),
+        Velocity::default(),
         Collider::new(vec2(0.0, 0.0), sizes),
         Sprite {
             color: Color::srgb(0.9, 0.9, 0.9),
             custom_size: Some(sizes),
             ..default()
         },
-        Transform::from_xyz(0.0, 0.0, z_order::BALL),
+        Transform::default(),
     ));
+
+    message_writer.write(ResetBall);
+}
+
+pub fn reset_ball(
+    mut message_reader: MessageReader<ResetBall>,
+    mut balls: Query<(&mut Transform, &mut Velocity), With<Ball>>,
+) {
+    for _ in message_reader.read() {
+        for (mut transform, mut velocity) in &mut balls {
+            transform.translation = BALL_SPAWN_POINT;
+            velocity.0 = random_direction() * BALL_SPEED;
+        }
+    }
 }
 
 pub fn update_velocity(

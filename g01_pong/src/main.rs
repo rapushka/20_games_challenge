@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use crate::ball::ResetBall;
 
 pub mod z_order {
     pub const DIVIDER: f32 = 1.0;
@@ -19,6 +20,8 @@ fn main() -> AppExit {
         .add_plugins(DefaultPlugins)
         .insert_resource(ClearColor(Color::srgb(0.1, 0.1, 0.1)))
 
+        .add_message::<ResetBall>()
+
         .add_systems(Startup, (
             spawn_camera,
             arena::spawn_level,
@@ -30,6 +33,7 @@ fn main() -> AppExit {
             input::read_players_input,
             paddle::move_paddles,
             ball::update_velocity,
+            ball::reset_ball,
             collision_detection::update_colliders,
             collision_detection::check_collisions,
         ).chain())
