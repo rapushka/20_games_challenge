@@ -2,6 +2,7 @@ use bevy::prelude::*;
 
 pub mod z_order {
     pub const DIVIDER: f32 = 1.0;
+    pub const SCORE: f32 = 1.0;
     pub const WALL: f32 = 2.0;
     pub const PADDLE: f32 = 2.0;
     pub const BALL: f32 = 4.0;
@@ -31,6 +32,7 @@ fn main() -> AppExit {
             arena::spawn_level,
             paddle::spawn_paddles,
             ball::spawn,
+            scoring::spawn_score_views,
         ).chain())
 
         .add_systems(Update, (

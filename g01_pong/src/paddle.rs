@@ -12,7 +12,7 @@ const PADDLE_MOVEMENT_SPEED: f32 = 400.0;
 #[derive(Component)]
 pub struct Paddle;
 
-#[derive(Component, Eq, PartialEq)]
+#[derive(Component, Eq, PartialEq, Copy, Clone)]
 pub enum Side {
     Left,
     Right,
