@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 pub use create::*;
-use crate::bounds::YBounds;
+use crate::bounds::Bounds;
 use crate::input::Movement;
 
 mod create;
@@ -19,13 +19,13 @@ pub enum Side {
 }
 
 pub fn move_paddles(
-    paddles: Query<(&mut Transform, &Movement, &YBounds), With<Paddle>>,
+    paddles: Query<(&mut Transform, &Movement, &Bounds), With<Paddle>>,
     time: Res<Time>,
 ) {
     let delta_time = time.delta_secs();
 
     for (mut transform, movement, y_bounds) in paddles {
         let y = transform.translation.y + (movement.y() * PADDLE_MOVEMENT_SPEED * delta_time);
-        transform.translation.y = y_bounds.clamp(y);
+        transform.translation.y = y_bounds.clamp_y(y);
     }
 }

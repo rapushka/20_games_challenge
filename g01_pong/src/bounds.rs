@@ -1,20 +1,31 @@
 use crate::prelude::*;
 
 #[derive(Component, Copy, Clone)]
-pub struct YBounds {
-    min: f32,
-    max: f32,
+pub struct Bounds {
+    min: Vec2,
+    max: Vec2,
 }
 
-impl YBounds {
-    pub fn new_square(scalar: f32) -> Self {
-        YBounds {
-            min: -scalar,
-            max: scalar,
+impl Bounds {
+    pub fn new_square_y(scalar: f32) -> Self {
+        Bounds {
+            min: vec2(0.0, -scalar),
+            max: vec2(0.0, scalar),
         }
     }
 
-    pub fn clamp(&self, source: f32) -> f32 {
-        source.clamp(self.min, self.max)
+    pub fn new_square_x(scalar: f32) -> Self {
+        Bounds {
+            min: vec2(-scalar, 0.0),
+            max: vec2(scalar, 0.0),
+        }
+    }
+
+    pub fn clamp_y(&self, source: f32) -> f32 {
+        source.clamp(self.min.y, self.max.y)
+    }
+
+    pub fn clamp_x(&self, source: f32) -> f32 {
+        source.clamp(self.min.x, self.max.x)
     }
 }
