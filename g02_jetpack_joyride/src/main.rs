@@ -1,5 +1,5 @@
 use crate::animation::*;
-use crate::background::spawn_background;
+use crate::background::{scroll_background, spawn_background};
 use crate::player::*;
 use crate::prelude::*;
 
@@ -22,6 +22,14 @@ pub mod constants {
     pub const DESCENDING_SPEED: f32 = 250.0;
 
     pub const BUTTON: KeyCode = KeyCode::Space;
+
+    pub const LEVEL_SCROLL_SPEED: f32 = 250.0;
+}
+
+pub mod asset_path {
+    pub const PLAYER_IMAGE: &str = "player/tilemap.png";
+
+    pub const BG_IMAGE: &str = "environment/bg.png";
 }
 
 pub mod prelude;
@@ -48,6 +56,7 @@ fn main() -> AppExit {
             descent_player,
 
             // view
+            scroll_background,
             animate_sprites,
         ).chain())
 

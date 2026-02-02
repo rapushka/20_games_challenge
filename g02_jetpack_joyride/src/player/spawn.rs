@@ -7,7 +7,7 @@ pub fn spawn_player(
     asset_server: Res<AssetServer>,
     mut texture_atlas_layouts: ResMut<Assets<TextureAtlasLayout>>,
 ) {
-    let texture = asset_server.load("player/tilemap.png");
+    let texture = asset_server.load(asset_path::PLAYER_IMAGE);
     let layout = TextureAtlasLayout::from_grid(UVec2::splat(25), 4, 1, None, None);
     let layout_handle = texture_atlas_layouts.add(layout);
 
