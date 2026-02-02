@@ -2,9 +2,9 @@ use bevy::camera::ScalingMode;
 use bevy::input::common_conditions::input_toggle_active;
 use bevy_inspector_egui::bevy_egui::EguiPlugin;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
-use weapon::{add_weapon_to_players, debug_muzzle_position};
+use crate::weapon::*;
 use crate::animation::*;
-use crate::background::{scroll_background, spawn_background};
+use crate::background::*;
 use crate::player::*;
 use crate::prelude::*;
 

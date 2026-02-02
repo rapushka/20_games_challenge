@@ -32,6 +32,7 @@ pub fn spawn_background(
     };
 
     commands.spawn((
+        utils::new_name("background"),
         Background,
         ScrollTextureX::new(constants::LEVEL_SCROLL_SPEED),
         sprite,
