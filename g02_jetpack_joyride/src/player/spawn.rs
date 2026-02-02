@@ -70,6 +70,7 @@ pub fn add_weapon_to_players(
     }
 }
 
+#[allow(dead_code)] // it's a debug system and it's currently disabled
 pub fn debug_muzzle_position(
     mut gizmos: Gizmos,
     muzzles: Query<&GlobalTransform, With<Muzzle>>,

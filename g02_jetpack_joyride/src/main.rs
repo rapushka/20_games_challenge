@@ -1,4 +1,5 @@
 use bevy::camera::ScalingMode;
+use bevy::input::common_conditions::input_toggle_active;
 use bevy_inspector_egui::bevy_egui::EguiPlugin;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use crate::animation::*;
@@ -15,14 +16,14 @@ pub mod constants {
     use crate::prelude::*;
 
     // player
-    pub const PLAYER_X: f32 = -95.0;
+    pub const PLAYER_X: f32 = -90.0;
     pub const ASCENDING_SPEED: f32 = 250.0;
     pub const DESCENDING_SPEED: f32 = 250.0;
     pub const BUTTON: KeyCode = KeyCode::Space;
 
     pub const GROUND_Y: f32 = MIN_Y;
 
-    pub const MIN_Y: f32 = -52.5;
+    pub const MIN_Y: f32 = -51.0;
     pub const MAX_Y: f32 = 50.0;
 
     pub const LEVEL_SCROLL_SPEED: f32 = 75.0;
@@ -52,6 +53,7 @@ fn main() -> AppExit {
             // egui
             EguiPlugin::default(),
             WorldInspectorPlugin::new()
+                .run_if(input_toggle_active(false, KeyCode::Backquote)),
         ))
 
         .add_systems(Startup, (
@@ -72,7 +74,9 @@ fn main() -> AppExit {
 
             //debug
             #[cfg(debug_assertions)]
-            debug_muzzle_position,
+            (
+                debug_muzzle_position,
+            ).run_if(input_toggle_active(false, KeyCode::Backquote)),
         ).chain())
 
         .run()
