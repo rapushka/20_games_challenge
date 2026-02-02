@@ -5,6 +5,7 @@ use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use crate::weapon::*;
 use crate::animation::*;
 use crate::background::*;
+use crate::bullet::*;
 use crate::player::*;
 use crate::prelude::*;
 
@@ -31,6 +32,8 @@ pub mod constants {
     pub const MAX_Y: f32 = 50.0;
 
     pub const LEVEL_SCROLL_SPEED: f32 = 75.0;
+
+    pub const SHOOT_BULLET_DELAY_S: f32 = 0.1;
 }
 
 pub mod asset_path {
@@ -46,6 +49,7 @@ mod utils;
 mod animation;
 mod player;
 mod weapon;
+mod bullet;
 mod background;
 
 fn main() -> AppExit {
@@ -60,6 +64,8 @@ fn main() -> AppExit {
                 .run_if(input_toggle_active(false, constants::TOGGLE_DEBUG_MODE_BUTTON)),
         ))
 
+        .add_message::<Shoot>()
+
         .add_systems(Startup, (
             spawn_camera,
             spawn_player,
@@ -71,6 +77,8 @@ fn main() -> AppExit {
             ascend_player,
             update_is_ascending,
             descent_player,
+            tick_shooting_timer_while_ascending,
+            shoot_bullet,
 
             // view
             scroll_background,
