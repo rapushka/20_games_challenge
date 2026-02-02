@@ -16,7 +16,6 @@ pub mod z_order {
 
 pub mod constants {
     use crate::prelude::*;
-    use crate::utils::from_hex;
 
     // player
     pub const PLAYER_X: f32 = -90.0;
