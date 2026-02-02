@@ -1,3 +1,4 @@
+use bevy::camera::ScalingMode;
 use crate::animation::*;
 use crate::background::{scroll_background, spawn_background};
 use crate::player::*;
@@ -11,25 +12,24 @@ pub mod z_order {
 pub mod constants {
     use crate::prelude::*;
 
-    pub const PLAYER_X: f32 = -450.0;
-
-    pub const GROUND_Y: f32 = MIN_Y;
-    pub const MIN_Y: f32 = -250.0;
-
-    pub const MAX_Y: f32 = 250.0;
+    // player
+    pub const PLAYER_X: f32 = -95.0;
     pub const ASCENDING_SPEED: f32 = 250.0;
-
     pub const DESCENDING_SPEED: f32 = 250.0;
-
     pub const BUTTON: KeyCode = KeyCode::Space;
 
-    pub const LEVEL_SCROLL_SPEED: f32 = 250.0;
+    pub const GROUND_Y: f32 = MIN_Y;
+
+    pub const MIN_Y: f32 = -52.5;
+    pub const MAX_Y: f32 = 50.0;
+
+    pub const LEVEL_SCROLL_SPEED: f32 = 25.0;
 }
 
 pub mod asset_path {
     pub const PLAYER_IMAGE: &str = "player/tilemap.png";
 
-    pub const BG_IMAGE: &str = "environment/bg.png";
+    pub const BG_IMAGE: &str = "environment/bg-scaled.png";
 }
 
 pub mod prelude;
@@ -66,5 +66,14 @@ fn main() -> AppExit {
 fn spawn_camera(
     mut commands: Commands,
 ) {
-    commands.spawn(Camera2d);
+    commands.spawn((
+        Camera2d,
+        Projection::Orthographic(OrthographicProjection {
+            scaling_mode: ScalingMode::AutoMax {
+                max_width: 240.0,
+                max_height: 135.0,
+            },
+            ..OrthographicProjection::default_2d()
+        }),
+    ));
 }

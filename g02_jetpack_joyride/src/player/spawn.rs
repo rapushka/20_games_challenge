@@ -27,7 +27,7 @@ pub fn spawn_player(
           Transform {
               translation: vec3(constants::PLAYER_X, constants::GROUND_Y, z_order::PLAYER),
               rotation: Quat::default(),
-              scale: Vec3::splat(5.0),
+              scale: Vec3::splat(1.0),
           },
         ),
     ));

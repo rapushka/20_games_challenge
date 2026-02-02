@@ -1,7 +1,7 @@
 use crate::prelude::*;
 use crate::utils;
 
-const BG_SIZES: Vec2 = vec2(640.0, 360.0);
+const BG_SIZES: Vec2 = vec2(240.0, 135.0);
 
 #[derive(Component)]
 pub struct Background;
@@ -35,6 +35,7 @@ pub fn spawn_background(
         Background,
         ScrollTextureX::new(constants::LEVEL_SCROLL_SPEED),
         sprite,
+        Transform::from_xyz(0.0, 0.5, z_order::BACKGROUND),
     ));
 }
 
