@@ -15,7 +15,7 @@ pub fn ascend_player(
     keyboard: Res<ButtonInput<KeyCode>>,
     time: Res<Time>,
 ) {
-    let is_pressed = keyboard.pressed(constants::BUTTON);
+    let is_pressed = keyboard.pressed(constants::ASCEND_BUTTON);
 
     if !is_pressed {
         return;
@@ -46,7 +46,7 @@ pub fn update_is_ascending(
     players: Query<Entity, With<Player>>,
     keyboard: Res<ButtonInput<KeyCode>>,
 ) {
-    let is_pressed = keyboard.pressed(constants::BUTTON);
+    let is_pressed = keyboard.pressed(constants::ASCEND_BUTTON);
 
     for player in players {
         if is_pressed {

@@ -2,6 +2,7 @@ use bevy::camera::ScalingMode;
 use bevy::input::common_conditions::input_toggle_active;
 use bevy_inspector_egui::bevy_egui::EguiPlugin;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use weapon::{add_weapon_to_players, debug_muzzle_position};
 use crate::animation::*;
 use crate::background::{scroll_background, spawn_background};
 use crate::player::*;
@@ -17,9 +18,12 @@ pub mod constants {
 
     // player
     pub const PLAYER_X: f32 = -90.0;
-    pub const ASCENDING_SPEED: f32 = 250.0;
-    pub const DESCENDING_SPEED: f32 = 250.0;
-    pub const BUTTON: KeyCode = KeyCode::Space;
+    pub const ASCENDING_SPEED: f32 = 200.0;
+    pub const DESCENDING_SPEED: f32 = 150.0;
+
+    // input
+    pub const ASCEND_BUTTON: KeyCode = KeyCode::Space;
+    pub const TOGGLE_DEBUG_MODE_BUTTON: KeyCode = KeyCode::Backquote;
 
     pub const GROUND_Y: f32 = MIN_Y;
 
@@ -53,7 +57,7 @@ fn main() -> AppExit {
             // egui
             EguiPlugin::default(),
             WorldInspectorPlugin::new()
-                .run_if(input_toggle_active(false, KeyCode::Backquote)),
+                .run_if(input_toggle_active(false, constants::TOGGLE_DEBUG_MODE_BUTTON)),
         ))
 
         .add_systems(Startup, (
@@ -76,7 +80,7 @@ fn main() -> AppExit {
             #[cfg(debug_assertions)]
             (
                 debug_muzzle_position,
-            ).run_if(input_toggle_active(false, KeyCode::Backquote)),
+            ).run_if(input_toggle_active(false, constants::TOGGLE_DEBUG_MODE_BUTTON)),
         ).chain())
 
         .run()
