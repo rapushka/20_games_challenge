@@ -1,6 +1,6 @@
-use crate::animation::animate_sprites;
+use crate::animation::*;
+use crate::player::*;
 use crate::prelude::*;
-use crate::prelude::KeyCode;
 
 pub mod z_order {
     pub const BACKGROUND: f32 = 0.0;
@@ -24,14 +24,9 @@ pub mod constants {
 }
 
 pub mod prelude;
+mod utils;
 mod animation;
-
-#[derive(Component)]
-struct Player;
-
-#[derive(Component)]
-#[component(storage = "SparseSet")]
-struct Ascending;
+mod player;
 
 fn main() -> AppExit {
     App::new()
@@ -60,69 +55,4 @@ fn spawn_camera(
     mut commands: Commands,
 ) {
     commands.spawn(Camera2d);
-}
-
-fn spawn_player(
-    mut commands: Commands,
-) {
-    commands.spawn((
-        Player,
-        Sprite {
-            color: color_from("#8888ff"),
-            custom_size: Some(vec2(50.0, 125.0)),
-            ..default()
-        },
-        Transform::from_xyz(constants::PLAYER_X, constants::GROUND_Y, z_order::PLAYER),
-    ));
-}
-
-fn ascend_player(
-    players: Query<&mut Transform, With<Player>>,
-    keyboard: Res<ButtonInput<KeyCode>>,
-    time: Res<Time>,
-) {
-    let is_pressed = keyboard.pressed(constants::BUTTON);
-
-    if !is_pressed {
-        return;
-    }
-
-    for mut transform in players {
-        let y = transform.translation.y;
-
-        transform.translation.y = (y + constants::ASCENDING_SPEED * time.delta_secs())
-            .clamp(constants::MIN_Y, constants::MAX_Y);
-    }
-}
-
-fn descent_player(
-    players: Query<&mut Transform, (With<Player>, Without<Ascending>)>,
-    time: Res<Time>,
-) {
-    for mut transform in players {
-        let y = transform.translation.y;
-
-        transform.translation.y = (y - constants::DESCENDING_SPEED * time.delta_secs())
-            .clamp(constants::MIN_Y, constants::MAX_Y);
-    }
-}
-
-fn update_is_ascending(
-    mut commands: Commands,
-    players: Query<Entity, With<Player>>,
-    keyboard: Res<ButtonInput<KeyCode>>,
-) {
-    let is_pressed = keyboard.pressed(constants::BUTTON);
-
-    for player in players {
-        if is_pressed {
-            commands.entity(player).insert(Ascending);
-        } else {
-            commands.entity(player).remove::<Ascending>();
-        }
-    }
-}
-
-fn color_from(hex: &'static str) -> Color {
-    Srgba::hex(hex).unwrap().into()
 }
