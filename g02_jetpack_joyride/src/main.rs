@@ -1,4 +1,5 @@
 use crate::animation::*;
+use crate::background::spawn_background;
 use crate::player::*;
 use crate::prelude::*;
 
@@ -27,6 +28,7 @@ pub mod prelude;
 mod utils;
 mod animation;
 mod player;
+mod background;
 
 fn main() -> AppExit {
     App::new()
@@ -37,6 +39,7 @@ fn main() -> AppExit {
         .add_systems(Startup, (
             spawn_camera,
             spawn_player,
+            spawn_background,
         ).chain())
 
         .add_systems(Update, (
