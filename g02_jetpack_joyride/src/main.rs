@@ -16,6 +16,7 @@ pub mod z_order {
 
 pub mod constants {
     use crate::prelude::*;
+    use crate::utils::from_hex;
 
     // player
     pub const PLAYER_X: f32 = -90.0;
@@ -34,9 +35,12 @@ pub mod constants {
     pub const LEVEL_SCROLL_SPEED: f32 = 75.0;
 
     // bullets
-    pub const SHOOT_BULLET_DELAY_S: f32 = 0.1;
+    pub const SHOOT_BULLET_DELAY_S: f32 = 0.02;
     pub const BULLET_FLY_SPEED: f32 = 500.0;
     pub const BULLET_DESPAWN_Y: f32 = GROUND_Y - 8.5;
+    pub const BULLET_MAX_SPREAD: f32 = 10.0;
+    pub const BULLET_COLOR: &str = "#fce571";
+    pub const BULLET_SIZE: Vec2 = vec2(7.0, 1.5);
 }
 
 pub mod asset_path {

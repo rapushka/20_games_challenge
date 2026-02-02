@@ -1,4 +1,5 @@
 use std::time::Duration;
+use rand::Rng;
 use crate::prelude::*;
 
 pub use spawn::*;
@@ -57,17 +58,21 @@ pub fn shoot_bullets(
         let weapon_transform = transforms.get(inventory.weapon).unwrap();
         let muzzle_transform = transforms.get(inventory.muzzle).unwrap();
 
+        let mut rotation = weapon_transform.rotation();
+        let max_rad = constants::BULLET_MAX_SPREAD.to_radians();
+        rotation.z += rand::rng().random_range(-max_rad..=max_rad);
+
         commands.spawn((
             utils::new_name("Bullet"),
             Bullet,
             Sprite {
-                custom_size: Some(vec2(5.0, 1.5)),
-                color: from_hex("#ffffff"),
+                custom_size: Some(constants::BULLET_SIZE),
+                color: from_hex(constants::BULLET_COLOR),
                 ..default()
             },
             Transform {
                 translation: muzzle_transform.translation(),
-                rotation: weapon_transform.rotation(),
+                rotation,
                 ..default()
             },
         ));

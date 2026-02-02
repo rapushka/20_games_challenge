@@ -9,6 +9,12 @@ pub fn add_weapon_to_players(
     players: Query<Entity, With<Player>>,
 ) {
     let weapon_image = asset_server.load(asset_path::WEAPON_IMAGE);
+    // Relative z to make next ordering:
+    // weapon (above all)
+    // bullets
+    // player
+    let weapon_z = 2.0;
+    let muzzle_z = -1.0;
 
     for player in players {
         let weapon = commands.spawn((
@@ -19,7 +25,7 @@ pub fn add_weapon_to_players(
                 ..default()
             },
             Transform {
-                translation: vec3(-5.5, -6.2, 1.0),
+                translation: vec3(-5.5, -6.2, weapon_z),
                 rotation: utils::rotation_2d(265.0),
                 scale: Vec3::splat(0.75),
             },
@@ -30,7 +36,7 @@ pub fn add_weapon_to_players(
             utils::new_name("Muzzle"),
             Muzzle,
             ChildOf(weapon),
-            Transform::from_xyz(8.5, 2.1, 0.0),
+            Transform::from_xyz(8.5, 2.1, muzzle_z),
         )).id();
 
         commands.entity(player)
