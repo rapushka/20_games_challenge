@@ -22,3 +22,11 @@ pub fn sampler_repeat(s: &mut ImageLoaderSettings) {
         ..default()
     };
 }
+
+pub fn new_name(name: &'static str) -> Name {
+    Name::new(name)
+}
+
+pub fn rotation_2d(degrees: f32) -> Quat {
+    Quat::from_rotation_z(degrees.to_radians())
+}

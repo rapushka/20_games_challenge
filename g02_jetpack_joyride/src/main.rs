@@ -1,4 +1,6 @@
 use bevy::camera::ScalingMode;
+use bevy_inspector_egui::bevy_egui::EguiPlugin;
+use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use crate::animation::*;
 use crate::background::{scroll_background, spawn_background};
 use crate::player::*;
@@ -23,31 +25,40 @@ pub mod constants {
     pub const MIN_Y: f32 = -52.5;
     pub const MAX_Y: f32 = 50.0;
 
-    pub const LEVEL_SCROLL_SPEED: f32 = 25.0;
+    pub const LEVEL_SCROLL_SPEED: f32 = 75.0;
 }
 
 pub mod asset_path {
     pub const PLAYER_IMAGE: &str = "player/tilemap.png";
 
     pub const BG_IMAGE: &str = "environment/bg-scaled.png";
+
+    pub const WEAPON_IMAGE: &str = "weapon/riffle.png";
 }
 
 pub mod prelude;
 mod utils;
 mod animation;
 mod player;
+mod weapon;
 mod background;
 
 fn main() -> AppExit {
     App::new()
-        .add_plugins(DefaultPlugins
-            .set(ImagePlugin::default_nearest())
-        )
+        .add_plugins((
+            DefaultPlugins
+                .set(ImagePlugin::default_nearest()),
+
+            // egui
+            EguiPlugin::default(),
+            WorldInspectorPlugin::new()
+        ))
 
         .add_systems(Startup, (
             spawn_camera,
             spawn_player,
             spawn_background,
+            add_weapon_to_players,
         ).chain())
 
         .add_systems(Update, (
@@ -58,6 +69,10 @@ fn main() -> AppExit {
             // view
             scroll_background,
             animate_sprites,
+
+            //debug
+            #[cfg(debug_assertions)]
+            debug_muzzle_position,
         ).chain())
 
         .run()
