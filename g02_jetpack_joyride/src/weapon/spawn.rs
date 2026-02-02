@@ -1,7 +1,7 @@
 use crate::player::{Player, FUCHSIA};
 use crate::prelude::*;
 use crate::utils;
-use crate::weapon::{HeldMuzzle, Muzzle, ShootTimer, Weapon};
+use crate::weapon::*;
 
 pub fn add_weapon_to_players(
     mut commands: Commands,
@@ -34,7 +34,7 @@ pub fn add_weapon_to_players(
         )).id();
 
         commands.entity(player)
-            .insert(HeldMuzzle(muzzle))
+            .insert(Inventory { weapon, muzzle })
             .insert(ShootTimer::new())
         ;
     }

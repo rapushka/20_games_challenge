@@ -15,9 +15,12 @@ pub struct Weapon;
 #[derive(Component)]
 pub struct Muzzle;
 
-// Player -> Muzzle
+// Expected to be on Player entity
 #[derive(Component)]
-pub struct HeldMuzzle(pub Entity);
+pub struct Inventory {
+    weapon: Entity,
+    muzzle: Entity,
+}
 
 #[derive(Component, DerefMut, Deref)]
 pub struct ShootTimer(pub Timer);
@@ -46,23 +49,25 @@ pub fn tick_shooting_timer_while_ascending(
 pub fn shoot_bullets(
     mut shoot_message: MessageReader<Shoot>,
     mut commands: Commands,
-    held_muzzle: Query<&HeldMuzzle>,
+    inventories: Query<&Inventory>,
     transforms: Query<&GlobalTransform>,
 ) {
     for player in shoot_message.read() {
-        let muzzle_id = held_muzzle.get(player.0).unwrap().0;
-        let muzzle_transform = transforms.get(muzzle_id).unwrap();
+        let inventory = inventories.get(player.0).unwrap();
+        let weapon_transform = transforms.get(inventory.weapon).unwrap();
+        let muzzle_transform = transforms.get(inventory.muzzle).unwrap();
 
         commands.spawn((
             utils::new_name("Bullet"),
             Bullet,
             Sprite {
-                custom_size: Some(vec2(3.0, 7.5)),
+                custom_size: Some(vec2(7.5, 3.0)),
                 color: from_hex("#ffffff"),
                 ..default()
             },
             Transform {
                 translation: muzzle_transform.translation(),
+                rotation: weapon_transform.rotation(),
                 ..default()
             },
         ));
