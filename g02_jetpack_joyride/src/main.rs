@@ -46,7 +46,7 @@ pub mod constants {
 pub mod asset_path {
     pub const PLAYER_IMAGE: &str = "player/tilemap.png";
 
-    pub const BG_IMAGE: &str = "environment/bg-scaled.png";
+    pub const BG_IMAGE: &str = "environment/bg_v4.png";
 
     pub const WEAPON_IMAGE: &str = "weapon/riffle.png";
 }
