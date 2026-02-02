@@ -20,7 +20,7 @@ pub fn add_weapon_to_players(
             },
             Transform {
                 translation: vec3(-5.5, -6.2, 1.0),
-                rotation: utils::rotation_2d(256.0),
+                rotation: utils::rotation_2d(265.0),
                 scale: Vec3::splat(0.75),
             },
             ChildOf(player),

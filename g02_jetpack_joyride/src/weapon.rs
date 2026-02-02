@@ -61,7 +61,7 @@ pub fn shoot_bullets(
             utils::new_name("Bullet"),
             Bullet,
             Sprite {
-                custom_size: Some(vec2(7.5, 3.0)),
+                custom_size: Some(vec2(5.0, 1.5)),
                 color: from_hex("#ffffff"),
                 ..default()
             },

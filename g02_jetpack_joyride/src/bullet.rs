@@ -12,7 +12,13 @@ pub fn fly_bullets(
     time: Res<Time>,
 ) {
     for mut transform in bullets {
-        transform.translation.y -= constants::BULLET_FLY_SPEED * time.delta_secs();
+        let forward = Vec3::X;
+        let direction = transform.rotation * forward;
+
+        let scaled_speed = constants::BULLET_FLY_SPEED * time.delta_secs();
+        let movement = direction * scaled_speed;
+
+        transform.translation += movement;
     }
 }
 
