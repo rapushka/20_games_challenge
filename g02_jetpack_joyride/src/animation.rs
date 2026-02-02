@@ -17,6 +17,10 @@ impl Animator {
         }
     }
 
+    pub fn first_index(&self) -> usize {
+        self.first_index
+    }
+
     pub fn next_index(&self, current_index: usize) -> usize {
         if current_index == self.last_index {
             self.first_index
