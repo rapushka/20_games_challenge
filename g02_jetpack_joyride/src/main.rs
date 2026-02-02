@@ -33,7 +33,10 @@ pub mod constants {
 
     pub const LEVEL_SCROLL_SPEED: f32 = 75.0;
 
+    // bullets
     pub const SHOOT_BULLET_DELAY_S: f32 = 0.1;
+    pub const BULLET_FLY_SPEED: f32 = 500.0;
+    pub const BULLET_DESPAWN_Y: f32 = GROUND_Y - 8.5;
 }
 
 pub mod asset_path {
@@ -78,7 +81,9 @@ fn main() -> AppExit {
             update_is_ascending,
             descent_player,
             tick_shooting_timer_while_ascending,
-            shoot_bullet,
+            shoot_bullets,
+            fly_bullets,
+            despawn_hit_bullets,
 
             // view
             scroll_background,

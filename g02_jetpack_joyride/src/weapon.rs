@@ -43,7 +43,7 @@ pub fn tick_shooting_timer_while_ascending(
     }
 }
 
-pub fn shoot_bullet(
+pub fn shoot_bullets(
     mut shoot_message: MessageReader<Shoot>,
     mut commands: Commands,
     held_muzzle: Query<&HeldMuzzle>,
