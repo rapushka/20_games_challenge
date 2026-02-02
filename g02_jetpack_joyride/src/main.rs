@@ -1,20 +1,30 @@
-use bevy::prelude::*;
+use crate::animation::animate_sprites;
+use crate::prelude::*;
+use crate::prelude::KeyCode;
 
 pub mod z_order {
     pub const BACKGROUND: f32 = 0.0;
     pub const PLAYER: f32 = 10.0;
 }
 
-const PLAYER_X: f32 = -450.0;
-const GROUND_Y: f32 = MIN_Y;
+pub mod constants {
+    use crate::prelude::*;
 
-const MIN_Y: f32 = -250.0;
-const MAX_Y: f32 = 250.0;
+    pub const PLAYER_X: f32 = -450.0;
 
-const ASCENDING_SPEED: f32 = 250.0;
-const DESCENDING_SPEED: f32 = 250.0;
+    pub const GROUND_Y: f32 = MIN_Y;
+    pub const MIN_Y: f32 = -250.0;
 
-const BUTTON: KeyCode = KeyCode::Space;
+    pub const MAX_Y: f32 = 250.0;
+    pub const ASCENDING_SPEED: f32 = 250.0;
+
+    pub const DESCENDING_SPEED: f32 = 250.0;
+
+    pub const BUTTON: KeyCode = KeyCode::Space;
+}
+
+pub mod prelude;
+mod animation;
 
 #[derive(Component)]
 struct Player;
@@ -25,7 +35,9 @@ struct Ascending;
 
 fn main() -> AppExit {
     App::new()
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins
+            .set(ImagePlugin::default_nearest())
+        )
 
         .add_systems(Startup, (
             spawn_camera,
@@ -36,6 +48,9 @@ fn main() -> AppExit {
             ascend_player,
             update_is_ascending,
             descent_player,
+
+            // view
+            animate_sprites,
         ).chain())
 
         .run()
@@ -57,7 +72,7 @@ fn spawn_player(
             custom_size: Some(vec2(50.0, 125.0)),
             ..default()
         },
-        Transform::from_xyz(PLAYER_X, GROUND_Y, z_order::PLAYER),
+        Transform::from_xyz(constants::PLAYER_X, constants::GROUND_Y, z_order::PLAYER),
     ));
 }
 
@@ -66,7 +81,7 @@ fn ascend_player(
     keyboard: Res<ButtonInput<KeyCode>>,
     time: Res<Time>,
 ) {
-    let is_pressed = keyboard.pressed(BUTTON);
+    let is_pressed = keyboard.pressed(constants::BUTTON);
 
     if !is_pressed {
         return;
@@ -75,8 +90,8 @@ fn ascend_player(
     for mut transform in players {
         let y = transform.translation.y;
 
-        transform.translation.y = (y + ASCENDING_SPEED * time.delta_secs())
-            .clamp(MIN_Y, MAX_Y);
+        transform.translation.y = (y + constants::ASCENDING_SPEED * time.delta_secs())
+            .clamp(constants::MIN_Y, constants::MAX_Y);
     }
 }
 
@@ -87,8 +102,8 @@ fn descent_player(
     for mut transform in players {
         let y = transform.translation.y;
 
-        transform.translation.y = (y - DESCENDING_SPEED * time.delta_secs())
-            .clamp(MIN_Y, MAX_Y);
+        transform.translation.y = (y - constants::DESCENDING_SPEED * time.delta_secs())
+            .clamp(constants::MIN_Y, constants::MAX_Y);
     }
 }
 
@@ -97,7 +112,7 @@ fn update_is_ascending(
     players: Query<Entity, With<Player>>,
     keyboard: Res<ButtonInput<KeyCode>>,
 ) {
-    let is_pressed = keyboard.pressed(BUTTON);
+    let is_pressed = keyboard.pressed(constants::BUTTON);
 
     for player in players {
         if is_pressed {
