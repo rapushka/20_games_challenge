@@ -2,12 +2,15 @@ use bevy::camera::ScalingMode;
 use bevy::input::common_conditions::input_toggle_active;
 use bevy_inspector_egui::bevy_egui::EguiPlugin;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use score::*;
 use crate::weapon::*;
 use crate::animation::*;
 use crate::background::*;
 use crate::bullet::*;
+use crate::game::*;
 use crate::player::*;
 use crate::prelude::*;
+use crate::score::*;
 
 pub mod z_order {
     pub const BACKGROUND: f32 = 0.0;
@@ -57,6 +60,8 @@ mod player;
 mod weapon;
 mod bullet;
 mod background;
+mod score;
+mod game;
 
 fn main() -> AppExit {
     App::new()
@@ -70,6 +75,9 @@ fn main() -> AppExit {
                 .run_if(input_toggle_active(false, constants::TOGGLE_DEBUG_MODE_BUTTON)),
         ))
 
+        .init_resource::<Score>()
+        .init_resource::<IsGameStarted>()
+
         .add_message::<Shoot>()
 
         .add_systems(Startup, (
@@ -77,20 +85,31 @@ fn main() -> AppExit {
             spawn_player,
             spawn_background,
             add_weapon_to_players,
+            spawn_score_view,
         ).chain())
 
         .add_systems(Update, (
+            // game
+            start_game_on_first_click,
+
+            // player
             ascend_player,
             update_is_ascending,
             descent_player,
+
+            // bullets
             tick_shooting_timer_while_ascending,
             shoot_bullets,
             fly_bullets,
             despawn_hit_bullets,
 
+            // score
+            increase_score,
+
             // view
             scroll_background,
             animate_sprites,
+            update_score_view,
 
             //debug
             #[cfg(debug_assertions)]
