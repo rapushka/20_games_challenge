@@ -7,23 +7,29 @@ use crate::weapon::*;
 use crate::animation::*;
 use crate::background::*;
 use crate::bullet::*;
+use crate::enemies::*;
 use crate::game::*;
 use crate::player::*;
 use crate::prelude::*;
-use crate::score::*;
 
 pub mod z_order {
     pub const BACKGROUND: f32 = 0.0;
     pub const PLAYER: f32 = 10.0;
+    pub const ENEMIES: f32 = 9.0;
 }
 
 pub mod constants {
     use crate::prelude::*;
 
+    pub const CANVAS_SIZE: Vec2 = vec2(240.0, 135.0);
+
     // player
     pub const PLAYER_X: f32 = -90.0;
     pub const ASCENDING_SPEED: f32 = 200.0;
     pub const DESCENDING_SPEED: f32 = 150.0;
+
+    // enemy
+    pub const ENEMY_SPAWN_X: f32 = (CANVAS_SIZE.x * 0.5) + 50.0;
 
     // input
     pub const ASCEND_BUTTON: KeyCode = KeyCode::Space;
@@ -47,6 +53,7 @@ pub mod constants {
 
 pub mod asset_path {
     pub const PLAYER_IMAGE: &str = "player/tilemap.png";
+    pub const ENEMIES_IMAGE: &str = "enemy/tilemap.png";
 
     pub const BG_IMAGE: &str = "environment/bg_v4.png";
 
@@ -62,6 +69,7 @@ mod bullet;
 mod background;
 mod score;
 mod game;
+mod enemies;
 
 fn main() -> AppExit {
     App::new()
@@ -77,8 +85,10 @@ fn main() -> AppExit {
 
         .init_resource::<Score>()
         .init_resource::<IsGameStarted>()
+        .init_resource::<EnemySpawnerTimer>()
 
         .add_message::<Shoot>()
+        .add_message::<SpawnEnemy>()
 
         .add_systems(Startup, (
             spawn_camera,
@@ -96,6 +106,10 @@ fn main() -> AppExit {
             ascend_player,
             update_is_ascending,
             descent_player,
+
+            // enemies
+            tick_enemy_spawn_timer,
+            spawn_enemy,
 
             // bullets
             tick_shooting_timer_while_ascending,
@@ -128,8 +142,8 @@ fn spawn_camera(
         Camera2d,
         Projection::Orthographic(OrthographicProjection {
             scaling_mode: ScalingMode::AutoMax {
-                max_width: 240.0,
-                max_height: 135.0,
+                max_width: constants::CANVAS_SIZE.x,
+                max_height: constants::CANVAS_SIZE.y,
             },
             ..OrthographicProjection::default_2d()
         }),

@@ -2,6 +2,7 @@ use crate::animation::Animator;
 use crate::player::Player;
 use crate::prelude::*;
 use crate::utils;
+
 pub const FUCHSIA: Srgba = Srgba::rgb(1.0, 0.0, 1.0);
 
 pub fn spawn_player(

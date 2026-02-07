@@ -1,3 +1,4 @@
+use std::time::Duration;
 use bevy::image::{ImageAddressMode, ImageLoaderSettings, ImageSampler, ImageSamplerDescriptor};
 use crate::prelude::*;
 
@@ -29,4 +30,8 @@ pub fn new_name(name: &'static str) -> Name {
 
 pub fn rotation_2d(degrees: f32) -> Quat {
     Quat::from_rotation_z(degrees.to_radians())
+}
+
+pub fn new_timer(duration_seconds: f32) -> Timer {
+    Timer::new(Duration::from_secs_f32(duration_seconds), TimerMode::Repeating)
 }
