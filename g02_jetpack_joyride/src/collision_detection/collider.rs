@@ -2,15 +2,17 @@ use bevy::math::FloatPow;
 use crate::player::FUCHSIA;
 use crate::prelude::*;
 
-#[derive(Component)]
+#[derive(Component, Reflect)]
+#[reflect(Component)]
 pub struct Collider {
     radius: f32,
+    offset: Vec2,
     center: Vec2,
 }
 
 impl Collider {
-    pub fn new(center: Vec2, radius: f32) -> Self {
-        Self { radius, center }
+    pub fn new(radius: f32, offset: Vec2) -> Self {
+        Self { radius, offset, center: Vec2::ZERO }
     }
 
     pub fn set_center(&mut self, value: Vec2) {
@@ -29,7 +31,8 @@ pub fn update_colliders(
     colliders: Query<(&mut Collider, &Transform)>
 ) {
     for (mut collider, transform) in colliders {
-        collider.set_center(transform.translation.truncate());
+        let offset = collider.offset;
+        collider.set_center(transform.translation.truncate() + offset);
     }
 }
 

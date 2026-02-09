@@ -32,7 +32,7 @@ pub mod constants {
 
     // enemy
     pub const ENEMY_SPAWN_X: f32 = CANVAS_HALF_SIZE.x + 50.0;
-    pub const ENEMY_MOVEMENT_SPEED: f32 = LEVEL_SCROLL_SPEED;
+    pub const ENEMY_MOVEMENT_SPEED: f32 = LEVEL_SCROLL_SPEED + 30.0;
     pub const ENEMY_DESPAWN_X: f32 = -CANVAS_HALF_SIZE.x - 50.0;
 
     // input

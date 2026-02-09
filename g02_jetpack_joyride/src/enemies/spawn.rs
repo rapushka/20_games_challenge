@@ -1,4 +1,3 @@
-use crate::collision_detection::Collider;
 use crate::enemies::{Enemy, SpawnEnemy};
 use crate::prelude::*;
 use crate::utils;
@@ -16,6 +15,7 @@ pub fn spawn_enemy(
 
         let spawn_y = enemy_type.spawn_y();
         let animator = enemy_type.new_animator();
+        let collider = enemy_type.new_collider();
 
         let mut sprite = Sprite::from_atlas_image(
             image,
@@ -39,7 +39,7 @@ pub fn spawn_enemy(
                   scale: Vec3::splat(1.0),
               },
             ),
-            Collider::new(spawn_position.truncate(), 5.0), // TODO: RADIUS
+            collider,
         ));
     }
 }

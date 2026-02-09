@@ -36,6 +36,6 @@ pub fn spawn_player(
               scale: Vec3::splat(1.0),
           },
         ),
-        Collider::new(spawn_position.truncate(), 5.0), // TODO: RADIUS
+        Collider::new(5.0, vec2(0.0, -5.0)),
     ));
 }
