@@ -32,6 +32,6 @@ pub fn rotation_2d(degrees: f32) -> Quat {
     Quat::from_rotation_z(degrees.to_radians())
 }
 
-pub fn new_timer(duration_seconds: f32) -> Timer {
+pub fn new_repeat_timer(duration_seconds: f32) -> Timer {
     Timer::new(Duration::from_secs_f32(duration_seconds), TimerMode::Repeating)
 }

@@ -20,6 +20,7 @@ pub mod z_order {
 }
 
 pub mod constants {
+    use std::ops::Range;
     use crate::prelude::*;
 
     pub const CANVAS_SIZE: Vec2 = vec2(240.0, 135.0);
@@ -34,6 +35,8 @@ pub mod constants {
     pub const ENEMY_SPAWN_X: f32 = CANVAS_HALF_SIZE.x + 50.0;
     pub const ENEMY_MOVEMENT_SPEED: f32 = LEVEL_SCROLL_SPEED + 30.0;
     pub const ENEMY_DESPAWN_X: f32 = -CANVAS_HALF_SIZE.x - 50.0;
+    pub const ENEMY_SPAWN_INTERVALS: f32 = 0.3;
+    pub const ENEMY_SPAWN_DEVIATION: Range<f32> = 0.0..0.5f32;
 
     // input
     pub const ASCEND_BUTTON: KeyCode = KeyCode::Space;
@@ -90,7 +93,7 @@ fn main() -> AppExit {
 
         .init_resource::<Score>()
         .init_resource::<IsGameStarted>()
-        .init_resource::<EnemySpawnerTimer>()
+        .insert_resource(EnemySpawnTimer::new(constants::ENEMY_SPAWN_INTERVALS))
 
         .add_message::<Shoot>()
         .add_message::<SpawnEnemy>()

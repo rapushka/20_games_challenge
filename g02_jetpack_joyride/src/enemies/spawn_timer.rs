@@ -1,26 +1,38 @@
+use std::time::Duration;
 use crate::prelude::*;
 use crate::utils;
 use rand::Rng;
 use crate::enemies::EnemyType;
 use crate::game::IsGameStarted;
 
-const SPAWN_INTERVALS: f32 = 0.5;
-
 #[derive(Message)]
 pub struct SpawnEnemy(pub EnemyType);
 
-#[derive(Resource, Deref, DerefMut)]
-pub struct EnemySpawnerTimer(Timer);
+#[derive(Resource)]
+pub struct EnemySpawnTimer {
+    timer: Timer,
+    init_duration: Duration,
+}
 
-impl Default for EnemySpawnerTimer {
-    fn default() -> Self {
-        Self(utils::new_timer(SPAWN_INTERVALS))
+impl EnemySpawnTimer {
+    pub fn new(duration_seconds: f32) -> Self {
+        Self {
+            init_duration: Duration::from_secs_f32(duration_seconds),
+            timer: utils::new_repeat_timer(duration_seconds),
+        }
+    }
+
+    pub fn reset(&mut self) {
+        let deviation = rand::rng().random_range(constants::ENEMY_SPAWN_DEVIATION);
+        let deviation = Duration::from_secs_f32(deviation);
+
+        self.timer.set_duration(self.init_duration + deviation);
     }
 }
 
 pub fn tick_enemy_spawn_timer(
     mut message_writer: MessageWriter<SpawnEnemy>,
-    mut spawner_timer: ResMut<EnemySpawnerTimer>,
+    mut spawner_timer: ResMut<EnemySpawnTimer>,
     is_game_started: Res<IsGameStarted>,
     time: Res<Time>,
 ) {
@@ -28,14 +40,15 @@ pub fn tick_enemy_spawn_timer(
         return;
     }
 
-    spawner_timer.tick(time.delta());
+    spawner_timer.timer.tick(time.delta());
 
-    if spawner_timer.just_finished() {
+    if spawner_timer.timer.just_finished() {
+        spawner_timer.reset();
         let random = rand::rng().random_range(0.0..=1.0f32);
 
-        let enemy_type = if random <= 0.75 {
+        let enemy_type = if random <= 0.60 {
             EnemyType::Fly
-        } else if random <= 0.85 {
+        } else if random <= 0.80 {
             EnemyType::Worm
         } else {
             EnemyType::YellowGuy
