@@ -19,6 +19,8 @@ pub mod z_order {
     pub const BACKGROUND: f32 = 0.0;
     pub const PLAYER: f32 = 10.0;
     pub const ENEMIES: f32 = 9.0;
+
+    pub const UI: f32 = 100.0;
 }
 
 pub mod constants {
@@ -110,6 +112,7 @@ fn main() -> AppExit {
             spawn_background,
             add_weapon_to_players,
             spawn_score_view,
+            spawn_highscore_view,
         ).chain())
 
         .add_systems(Update, (
@@ -140,19 +143,25 @@ fn main() -> AppExit {
 
             // score
             increase_score,
+            update_highscore,
+        ).chain())
 
+        .add_systems(Update, (
             // view
             scroll_background,
             animate_sprites,
             update_score_view,
+            update_highscore_view,
+        ))
 
+        .add_systems(Update, (
             //debug
             #[cfg(debug_assertions)]
             (
                 debug_muzzle_position,
                 debug_colliders,
             ).run_if(input_toggle_active(false, constants::TOGGLE_DEBUG_MODE_BUTTON)),
-        ).chain())
+        ))
 
         .run()
 }

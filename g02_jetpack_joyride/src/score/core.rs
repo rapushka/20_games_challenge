@@ -21,7 +21,11 @@ impl Default for Score {
 }
 
 impl Score {
-    pub fn value(&self) -> String {
+    pub fn value(&self) -> u32 {
+        self.value
+    }
+
+    pub fn string(&self) -> String {
         self.value.to_string()
     }
 

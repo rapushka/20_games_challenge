@@ -4,3 +4,5 @@
 .cargo/config.toml
 
 /.idea
+# gameplay "Save File"
+/g02_jetpack_joyride_prefs.ron

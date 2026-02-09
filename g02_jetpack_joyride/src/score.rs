@@ -22,7 +22,7 @@ pub fn spawn_score_view(
             ..default()
         },
         Transform {
-            translation: vec3(0.0, constants::MAX_Y, 0.0),
+            translation: vec3(0.0, constants::MAX_Y, z_order::UI),
             scale: Vec3::splat(0.2),
             ..default()
         },
@@ -48,7 +48,7 @@ pub fn update_score_view(
 ) {
     for mut text in score_views {
         text.0 = if is_game_started.is_started() {
-            score.value()
+            score.string()
         } else {
             "Press Space to Start".to_string()
         };
