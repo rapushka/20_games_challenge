@@ -22,6 +22,7 @@ pub mod constants {
     use crate::prelude::*;
 
     pub const CANVAS_SIZE: Vec2 = vec2(240.0, 135.0);
+    pub const CANVAS_HALF_SIZE: Vec2 = vec2(CANVAS_SIZE.x * 0.5, CANVAS_SIZE.y * 0.5);
 
     // player
     pub const PLAYER_X: f32 = -90.0;
@@ -29,7 +30,9 @@ pub mod constants {
     pub const DESCENDING_SPEED: f32 = 150.0;
 
     // enemy
-    pub const ENEMY_SPAWN_X: f32 = (CANVAS_SIZE.x * 0.5) + 50.0;
+    pub const ENEMY_SPAWN_X: f32 = CANVAS_HALF_SIZE.x + 50.0;
+    pub const ENEMY_MOVEMENT_SPEED: f32 = LEVEL_SCROLL_SPEED;
+    pub const ENEMY_DESPAWN_X: f32 = -CANVAS_HALF_SIZE.x - 50.0;
 
     // input
     pub const ASCEND_BUTTON: KeyCode = KeyCode::Space;
@@ -110,6 +113,8 @@ fn main() -> AppExit {
             // enemies
             tick_enemy_spawn_timer,
             spawn_enemy,
+            move_enemies,
+            despawn_enemies_offscreen,
 
             // bullets
             tick_shooting_timer_while_ascending,
