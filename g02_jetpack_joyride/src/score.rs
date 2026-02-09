@@ -3,7 +3,9 @@ use crate::prelude::*;
 use crate::utils;
 
 pub use core::*;
+pub use highscore::*;
 mod core;
+mod highscore;
 
 #[derive(Component)]
 pub struct ScoreView;

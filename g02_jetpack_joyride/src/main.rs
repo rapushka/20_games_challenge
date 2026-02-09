@@ -2,6 +2,7 @@ use bevy::camera::ScalingMode;
 use bevy::input::common_conditions::input_toggle_active;
 use bevy_inspector_egui::bevy_egui::EguiPlugin;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
+use bevy_simple_prefs::PrefsPlugin;
 use score::*;
 use crate::weapon::*;
 use crate::animation::*;
@@ -11,6 +12,7 @@ use crate::collision_detection::*;
 use crate::enemies::*;
 use crate::game::*;
 use crate::player::*;
+use crate::player_prefs::PlayerPrefs;
 use crate::prelude::*;
 
 pub mod z_order {
@@ -78,6 +80,7 @@ mod score;
 mod game;
 mod enemies;
 mod collision_detection;
+mod player_prefs;
 
 fn main() -> AppExit {
     App::new()
@@ -85,7 +88,9 @@ fn main() -> AppExit {
             DefaultPlugins
                 .set(ImagePlugin::default_nearest()),
 
-            // egui
+            // # 3rd party
+            PrefsPlugin::<PlayerPrefs>::default(),
+            // ## egui
             EguiPlugin::default(),
             WorldInspectorPlugin::new()
                 .run_if(input_toggle_active(false, constants::TOGGLE_DEBUG_MODE_BUTTON)),
