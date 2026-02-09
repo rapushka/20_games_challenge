@@ -1,4 +1,5 @@
 use crate::animation::Animator;
+use crate::collision_detection::Collider;
 use crate::player::Player;
 use crate::prelude::*;
 use crate::utils;
@@ -16,6 +17,7 @@ pub fn spawn_player(
 
     let animator = Animator::new(7.0, 0, 1);
 
+    let spawn_position = vec3(constants::PLAYER_X, constants::GROUND_Y, z_order::PLAYER);
     commands.spawn((
         utils::new_name("Player"),
         Player,
@@ -29,10 +31,11 @@ pub fn spawn_player(
           ),
           animator,
           Transform {
-              translation: vec3(constants::PLAYER_X, constants::GROUND_Y, z_order::PLAYER),
+              translation: spawn_position,
               rotation: Quat::default(),
               scale: Vec3::splat(1.0),
           },
         ),
+        Collider::new(spawn_position.truncate(), 5.0), // TODO: RADIUS
     ));
 }

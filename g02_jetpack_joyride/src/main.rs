@@ -7,6 +7,7 @@ use crate::weapon::*;
 use crate::animation::*;
 use crate::background::*;
 use crate::bullet::*;
+use crate::collision_detection::*;
 use crate::enemies::*;
 use crate::game::*;
 use crate::player::*;
@@ -73,6 +74,7 @@ mod background;
 mod score;
 mod game;
 mod enemies;
+mod collision_detection;
 
 fn main() -> AppExit {
     App::new()
@@ -92,6 +94,7 @@ fn main() -> AppExit {
 
         .add_message::<Shoot>()
         .add_message::<SpawnEnemy>()
+        .add_message::<PlayerTouchedEnemy>()
 
         .add_systems(Startup, (
             spawn_camera,
@@ -109,12 +112,17 @@ fn main() -> AppExit {
             ascend_player,
             update_is_ascending,
             descent_player,
+            player_die,
 
             // enemies
             tick_enemy_spawn_timer,
             spawn_enemy,
             move_enemies,
             despawn_enemies_offscreen,
+
+            // collision detection
+            update_colliders,
+            check_collisions,
 
             // bullets
             tick_shooting_timer_while_ascending,

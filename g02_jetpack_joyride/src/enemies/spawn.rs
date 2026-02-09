@@ -1,3 +1,4 @@
+use crate::collision_detection::Collider;
 use crate::enemies::{Enemy, SpawnEnemy};
 use crate::prelude::*;
 use crate::utils;
@@ -24,6 +25,7 @@ pub fn spawn_enemy(
             },
         );
         sprite.flip_x = true;
+        let spawn_position = vec3(constants::ENEMY_SPAWN_X, spawn_y, z_order::ENEMIES);
 
         commands.spawn((
             utils::new_name("Enemy"),
@@ -32,11 +34,12 @@ pub fn spawn_enemy(
               sprite,
               animator,
               Transform {
-                  translation: vec3(constants::ENEMY_SPAWN_X, spawn_y, z_order::ENEMIES),
+                  translation: spawn_position,
                   rotation: Quat::default(),
                   scale: Vec3::splat(1.0),
               },
             ),
+            Collider::new(spawn_position.truncate(), 5.0), // TODO: RADIUS
         ));
     }
 }
