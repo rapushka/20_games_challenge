@@ -34,11 +34,11 @@ pub fn tick_enemy_spawn_timer(
         let random = rand::rng().random_range(0.0..=1.0f32);
 
         let enemy_type = if random <= 0.75 {
-            EnemyType::Flying
+            EnemyType::Fly
         } else if random <= 0.85 {
-            EnemyType::OnGround1
+            EnemyType::Worm
         } else {
-            EnemyType::OnGround2
+            EnemyType::YellowGuy
         };
 
         message_writer.write(SpawnEnemy(enemy_type));
