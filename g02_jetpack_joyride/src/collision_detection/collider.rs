@@ -1,4 +1,5 @@
 use bevy::math::FloatPow;
+use crate::player::FUCHSIA;
 use crate::prelude::*;
 
 #[derive(Component)]
@@ -29,5 +30,14 @@ pub fn update_colliders(
 ) {
     for (mut collider, transform) in colliders {
         collider.set_center(transform.translation.truncate());
+    }
+}
+
+pub fn debug_colliders(
+    mut gizmos: Gizmos,
+    colliders: Query<&Collider>,
+) {
+    for collider in colliders {
+        gizmos.circle_2d(collider.center, collider.radius, FUCHSIA);
     }
 }

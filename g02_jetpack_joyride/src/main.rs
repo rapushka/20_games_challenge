@@ -142,6 +142,7 @@ fn main() -> AppExit {
             #[cfg(debug_assertions)]
             (
                 debug_muzzle_position,
+                debug_colliders,
             ).run_if(input_toggle_active(false, constants::TOGGLE_DEBUG_MODE_BUTTON)),
         ).chain())
 
