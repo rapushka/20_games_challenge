@@ -1,4 +1,4 @@
-use crate::player::{Player};
+use crate::player::{Dead, Player};
 use crate::prelude::*;
 
 #[derive(Component)]
@@ -6,7 +6,7 @@ use crate::prelude::*;
 pub struct Ascending;
 
 pub fn ascend_player(
-    players: Query<&mut Transform, With<Player>>,
+    players: Query<&mut Transform, (With<Player>, Without<Dead>)>,
     keyboard: Res<ButtonInput<KeyCode>>,
     time: Res<Time>,
 ) {

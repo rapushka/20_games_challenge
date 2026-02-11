@@ -1,3 +1,4 @@
+use crate::player::{Dead, Player};
 use crate::prelude::*;
 
 #[derive(Resource, Default)]
@@ -19,8 +20,13 @@ impl IsGameStarted {
 
 pub fn start_game_on_first_click(
     mut is_game_started: ResMut<IsGameStarted>,
+    alive_players: Query<(), (With<Player>, Without<Dead>)>,
     keyboard: Res<ButtonInput<KeyCode>>,
 ) {
+    if alive_players.is_empty() {
+        return;
+    }
+
     if keyboard.just_pressed(constants::ASCEND_BUTTON) {
         is_game_started.start();
     }
