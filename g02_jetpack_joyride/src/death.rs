@@ -51,11 +51,16 @@ pub fn fall_dead_characters(
     }
 }
 
-fn ease_in_back(t: f32) -> f32 {
-    let c1 = 1.70158;
-    let c3 = c1 + 1.0;
-
-    c3 * t * t * t - c1 * t * t
+pub fn despawn_corpse_offscreen(
+    mut commands: Commands,
+    characters: Query<(Entity, &Transform), With<Dead>>,
+) {
+    for (character, transform) in characters {
+        if transform.translation.y < -constants::CANVAS_HALF_SIZE.y - 50.0 {
+            commands.entity(character).despawn();
+            info!("DESPAWNED!");
+        }
+    }
 }
 
 fn create_curve() -> CubicCurve<f32> {

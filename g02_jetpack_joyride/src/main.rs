@@ -156,8 +156,14 @@ fn main() -> AppExit {
             update_highscore_view,
 
             // death
-            start_fall_animation,
-            fall_dead_characters,
+            (
+                start_fall_animation,
+                fall_dead_characters,
+            ).chain()
+        ))
+
+        .add_systems(PostUpdate, (
+            despawn_corpse_offscreen,
         ))
 
         .add_systems(Update, (
