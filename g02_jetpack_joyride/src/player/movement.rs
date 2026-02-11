@@ -1,4 +1,5 @@
-use crate::player::{Dead, Player};
+use crate::player::Player;
+use crate::death::Dead;
 use crate::prelude::*;
 
 #[derive(Component)]
@@ -25,7 +26,7 @@ pub fn ascend_player(
 }
 
 pub fn descent_player(
-    players: Query<&mut Transform, (With<Player>, Without<Ascending>)>,
+    players: Query<&mut Transform, (With<Player>, Without<Ascending>, Without<Dead>)>,
     time: Res<Time>,
 ) {
     for mut transform in players {

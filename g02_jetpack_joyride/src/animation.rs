@@ -1,4 +1,6 @@
+use std::time::Duration;
 use crate::prelude::*;
+use crate::utils;
 
 #[derive(Component)]
 pub struct Animator {
@@ -10,10 +12,18 @@ pub struct Animator {
 
 impl Animator {
     pub fn new(fps: f32, first_index: usize, last_index: usize) -> Self {
-        Animator {
-            timer: Timer::from_seconds(1.0 / fps, TimerMode::Repeating),
+        Self {
+            timer: utils::new_repeat_timer(1.0 / fps),
             first_index,
             last_index,
+        }
+    }
+
+    pub fn one_frame(index: usize) -> Self {
+        Self {
+            timer: Timer::new(Duration::from_secs(0), TimerMode::Repeating),
+            first_index: index,
+            last_index: index,
         }
     }
 

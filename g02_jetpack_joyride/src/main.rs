@@ -9,6 +9,7 @@ use crate::animation::*;
 use crate::background::*;
 use crate::bullet::*;
 use crate::collision_detection::*;
+use crate::death::fall_dead_characters;
 use crate::enemies::*;
 use crate::game::*;
 use crate::player::*;
@@ -83,6 +84,7 @@ mod game;
 mod enemies;
 mod collision_detection;
 mod player_prefs;
+mod death;
 
 fn main() -> AppExit {
     App::new()
@@ -152,6 +154,7 @@ fn main() -> AppExit {
             animate_sprites,
             update_score_view,
             update_highscore_view,
+            fall_dead_characters,
         ))
 
         .add_systems(Update, (

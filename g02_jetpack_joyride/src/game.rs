@@ -1,4 +1,5 @@
-use crate::player::{Dead, Player};
+use crate::death::Dead;
+use crate::player::*;
 use crate::prelude::*;
 
 #[derive(Resource, Default)]

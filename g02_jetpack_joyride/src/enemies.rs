@@ -3,6 +3,7 @@ use crate::prelude::*;
 pub use spawn_timer::*;
 pub use spawn::*;
 pub use enemy_type::*;
+use crate::death::Dead;
 
 mod spawn_timer;
 mod spawn;
@@ -12,7 +13,7 @@ mod enemy_type;
 pub struct Enemy;
 
 pub fn move_enemies(
-    enemies: Query<&mut Transform, With<Enemy>>,
+    enemies: Query<&mut Transform, (With<Enemy>, Without<Dead>)>,
     time: Res<Time>,
 ) {
     for mut transform in enemies {
