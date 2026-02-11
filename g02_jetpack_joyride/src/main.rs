@@ -9,7 +9,7 @@ use crate::animation::*;
 use crate::background::*;
 use crate::bullet::*;
 use crate::collision_detection::*;
-use crate::death::fall_dead_characters;
+use crate::death::*;
 use crate::enemies::*;
 use crate::game::*;
 use crate::player::*;
@@ -154,6 +154,9 @@ fn main() -> AppExit {
             animate_sprites,
             update_score_view,
             update_highscore_view,
+
+            // death
+            start_fall_animation,
             fall_dead_characters,
         ))
 
