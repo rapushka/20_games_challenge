@@ -14,7 +14,7 @@ pub fn player_die(
     for _ in message.read() {
         for player in &mut players {
             commands.entity(player)
-                .insert(Animator::one_frame(3))
+                // .insert(Animator::one_frame(3))
                 .insert(Dead);
         }
 

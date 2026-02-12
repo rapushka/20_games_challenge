@@ -30,6 +30,7 @@ pub fn spawn_enemy(
         commands.spawn((
             utils::new_name("Enemy"),
             Enemy,
+            enemy_type.clone(),
             ( // view
               sprite,
               animator,

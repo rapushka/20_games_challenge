@@ -4,6 +4,7 @@ use crate::prelude::*;
 
 pub use spawn::*;
 use crate::bullet::{Bullet, Shoot};
+use crate::collision_detection::Collider;
 use crate::player::{Ascending, Player};
 use crate::utils;
 use crate::utils::from_hex;
@@ -75,6 +76,7 @@ pub fn shoot_bullets(
                 rotation,
                 ..default()
             },
+            Collider::new(2.5, Vec2::ZERO),
         ));
     }
 }

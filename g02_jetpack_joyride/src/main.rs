@@ -135,7 +135,8 @@ fn main() -> AppExit {
 
             // collision detection
             update_colliders,
-            check_collisions,
+            collide_player_and_enemy,
+            collide_enemy_and_bullet,
 
             // bullets
             tick_shooting_timer_while_ascending,

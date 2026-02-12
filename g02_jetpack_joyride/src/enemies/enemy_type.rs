@@ -3,6 +3,7 @@ use crate::animation::Animator;
 use crate::collision_detection::Collider;
 use crate::prelude::*;
 
+#[derive(Component, Clone)]
 pub enum EnemyType {
     Fly,
     Worm,
@@ -19,11 +20,18 @@ impl EnemyType {
     }
 
     pub fn new_animator(&self) -> Animator {
-        // Animator::new(7.0, 0, 1)
         match self {
             EnemyType::Fly => Animator::new(7.0, 4, 5),
             EnemyType::Worm => Animator::new(7.0, 0, 1),
             EnemyType::YellowGuy => Animator::new(7.0, 8, 9),
+        }
+    }
+
+    pub fn dead_frame(&self) -> usize {
+        match self {
+            EnemyType::Fly => 7,
+            EnemyType::Worm => 3,
+            EnemyType::YellowGuy => 11,
         }
     }
 
