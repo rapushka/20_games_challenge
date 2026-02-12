@@ -10,6 +10,12 @@ pub struct HighscoreView;
 #[derive(Resource, Reflect, Clone, Eq, PartialEq, Debug, Default)]
 pub struct Highscore(u32);
 
+impl Highscore {
+    pub fn value(&self) -> u32 {
+        self.0
+    }
+}
+
 pub fn spawn_highscore_view(
     mut commands: Commands,
     highscore: Res<Highscore>,

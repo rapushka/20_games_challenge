@@ -4,6 +4,9 @@ use crate::utils;
 
 pub use core::*;
 pub use highscore::*;
+use crate::death::Dead;
+use crate::player::Player;
+
 mod core;
 mod highscore;
 
@@ -21,6 +24,7 @@ pub fn spawn_score_view(
             font_size: 64.0,
             ..default()
         },
+        TextLayout::new(Justify::Center, LineBreak::NoWrap),
         Transform {
             translation: vec3(0.0, constants::MAX_Y, z_order::UI),
             scale: Vec3::splat(0.2),
@@ -45,9 +49,16 @@ pub fn update_score_view(
     score: Res<Score>,
     score_views: Query<&mut Text2d, With<ScoreView>>,
     is_game_started: Res<IsGameStarted>,
+    players: Query<(), (With<Player>, Without<Dead>)>,
 ) {
+    let is_player_alive = !players.is_empty();
     for mut text in score_views {
-        text.0 = if is_game_started.is_started() {
+        text.0 = if !is_player_alive {
+            format!(
+                "GAME OVER\nfinal score: {}",
+                score.string(),
+            )
+        } else if is_game_started.is_started() {
             score.string()
         } else {
             "Press Space to Start".to_string()
