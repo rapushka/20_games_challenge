@@ -14,8 +14,8 @@ pub struct PlayerTouchedEnemy;
 
 pub fn collide_player_and_enemy(
     mut message: MessageWriter<PlayerTouchedEnemy>,
-    players: Query<&Collider, With<Player>>,
-    enemies: Query<&Collider, With<Enemy>>,
+    players: Query<&Collider, (With<Player>, Without<Dead>)>,
+    enemies: Query<&Collider, (With<Enemy>, Without<Dead>)>,
     is_game_started: Res<IsGameStarted>,
 ) {
     if !is_game_started.is_started() {
@@ -33,7 +33,7 @@ pub fn collide_player_and_enemy(
 
 pub fn collide_enemy_and_bullet(
     mut commands: Commands,
-    enemies: Query<(Entity, &Collider), With<Enemy>>,
+    enemies: Query<(Entity, &Collider), (With<Enemy>, Without<Dead>)>,
     bullets: Query<&Collider, With<Bullet>>,
     is_game_started: Res<IsGameStarted>,
 ) {
