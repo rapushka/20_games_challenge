@@ -1,4 +1,3 @@
-use crate::animation::Animator;
 use crate::collision_detection::PlayerTouchedEnemy;
 use crate::death::Dead;
 use crate::game::IsGameStarted;
