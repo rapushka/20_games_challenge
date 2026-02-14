@@ -1,10 +1,7 @@
-use bevy::ecs::error::panic;
 use crate::animation::Animator;
 use crate::enemies::{Enemy, EnemyType};
 use crate::player::Player;
 use crate::prelude::*;
-
-const DEAD_FALL_SPEED: f32 = 200.0;
 
 #[derive(Component)]
 pub struct Dead;

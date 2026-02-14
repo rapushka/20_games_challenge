@@ -1,10 +1,9 @@
-use bevy::audio::Volume;
-use crate::bullet::BulletHit;
 use crate::collision_detection::PlayerTouchedEnemy;
 use crate::death::Dead;
 use crate::game::IsGameStarted;
 use crate::player::Player;
 use crate::prelude::*;
+use bevy::audio::Volume;
 
 pub fn on_player_touched_enemy(
     mut commands: Commands,
