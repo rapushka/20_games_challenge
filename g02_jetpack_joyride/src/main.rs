@@ -65,11 +65,15 @@ pub mod constants {
 
 pub mod asset_path {
     pub const PLAYER_IMAGE: &str = "player/tilemap.png";
-    pub const ENEMIES_IMAGE: &str = "enemy/tilemap.png";
-
-    pub const BG_IMAGE: &str = "environment/bg_v4.png";
+    pub const LOOSE_SOUND: &str = "player/lose-d.ogg";
 
     pub const WEAPON_IMAGE: &str = "weapon/riffle.png";
+    pub const SHOOT_SOUND: &str = "player/shoot-f.ogg";
+
+    pub const ENEMIES_IMAGE: &str = "enemy/tilemap.png";
+    pub const HIT_SOUND: &str = "enemy/hurt-a.ogg";
+
+    pub const BG_IMAGE: &str = "environment/bg_v4.png";
 }
 
 pub mod prelude;
