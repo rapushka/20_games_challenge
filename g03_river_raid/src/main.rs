@@ -2,9 +2,10 @@ use crate::player::plugin::PlayerPlugin;
 use crate::prelude::*;
 
 mod prelude;
+pub mod constants;
+pub mod utils;
 mod app_state;
 mod player;
-pub mod utils;
 
 fn main() -> AppExit {
     App::new()
