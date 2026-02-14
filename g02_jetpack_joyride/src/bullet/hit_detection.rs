@@ -1,3 +1,4 @@
+use crate::audio_player::PlaySoundCommandExtensions;
 use crate::prelude::*;
 
 #[derive(Eq, PartialEq)]
@@ -41,18 +42,10 @@ pub fn despawn_hit_bullets(
 pub fn play_sound_on_bullet_hit_enemy(
     mut commands: Commands,
     mut message_reader: MessageReader<BulletHit>,
-    asset_server: Res<AssetServer>,
 ) {
-    let sound = asset_server.load(asset_path::ENEMY_HIT_SOUND);
-
     for message in message_reader.read() {
-        if message.hit_type != HitType::Enemy {
-            continue;
+        if message.hit_type == HitType::Enemy {
+            commands.play_sound(asset_path::ENEMY_HIT_SOUND);
         }
-
-        commands.spawn((
-            AudioPlayer::new(sound.clone()),
-            PlaybackSettings::DESPAWN,
-        ));
     }
 }

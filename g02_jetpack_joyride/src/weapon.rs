@@ -4,6 +4,7 @@ use rand::Rng;
 use crate::prelude::*;
 
 pub use spawn::*;
+use crate::audio_player::PlaySoundCommandExtensions;
 use crate::bullet::*;
 use crate::collision_detection::*;
 use crate::player::*;
@@ -83,17 +84,8 @@ pub fn shoot_bullets(
 pub fn play_sound_on_shoot(
     mut commands: Commands,
     mut message_reader: MessageReader<BulletHit>,
-    asset_server: Res<AssetServer>,
 ) {
-    let sound = asset_server.load(asset_path::SHOOT_SOUND);
-
     for _ in message_reader.read() {
-        commands.spawn((
-            AudioPlayer::new(sound.clone()),
-            PlaybackSettings {
-                volume: Volume::Linear(0.05),
-                ..PlaybackSettings::DESPAWN
-            },
-        ));
+        commands.play_sound_with_volume(asset_path::SHOOT_SOUND, 0.05);
     }
 }

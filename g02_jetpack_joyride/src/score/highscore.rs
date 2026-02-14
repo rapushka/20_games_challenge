@@ -1,7 +1,6 @@
 use crate::collision_detection::PlayerTouchedEnemy;
-use crate::game::IsGameStarted;
 use crate::prelude::*;
-use crate::score::{Score, ScoreView};
+use crate::score::{Score};
 use crate::utils;
 
 #[derive(Component)]

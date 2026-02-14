@@ -89,6 +89,7 @@ mod enemies;
 mod collision_detection;
 mod player_prefs;
 mod death;
+mod audio_player;
 
 fn main() -> AppExit {
     App::new()

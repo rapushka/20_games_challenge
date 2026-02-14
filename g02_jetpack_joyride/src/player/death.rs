@@ -1,9 +1,9 @@
+use crate::audio_player::PlaySoundCommandExtensions;
 use crate::collision_detection::PlayerTouchedEnemy;
 use crate::death::Dead;
 use crate::game::IsGameStarted;
 use crate::player::Player;
 use crate::prelude::*;
-use bevy::audio::Volume;
 
 pub fn on_player_touched_enemy(
     mut commands: Commands,
@@ -25,17 +25,8 @@ pub fn on_player_touched_enemy(
 pub fn play_sound_on_player_dead(
     mut commands: Commands,
     mut message_reader: MessageReader<PlayerTouchedEnemy>,
-    asset_server: Res<AssetServer>,
 ) {
-    let sound = asset_server.load(asset_path::LOOSE_SOUND);
-
     for _ in message_reader.read() {
-        commands.spawn((
-            AudioPlayer::new(sound.clone()),
-            PlaybackSettings {
-                volume: Volume::Linear(0.25),
-                ..PlaybackSettings::DESPAWN
-            },
-        ));
+        commands.play_sound_with_volume(asset_path::LOOSE_SOUND, 0.25);
     }
 }
