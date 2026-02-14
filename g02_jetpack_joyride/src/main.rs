@@ -71,7 +71,7 @@ pub mod asset_path {
     pub const SHOOT_SOUND: &str = "player/shoot-f.ogg";
 
     pub const ENEMIES_IMAGE: &str = "enemy/tilemap.png";
-    pub const HIT_SOUND: &str = "enemy/hurt-a.ogg";
+    pub const ENEMY_HIT_SOUND: &str = "enemy/hurt-a.ogg";
 
     pub const BG_IMAGE: &str = "environment/bg_v4.png";
 }
@@ -161,6 +161,9 @@ fn main() -> AppExit {
             animate_sprites,
             update_score_view,
             update_highscore_view,
+
+            // sounds
+            play_sound_on_bullet_hit_enemy,
 
             // death
             (

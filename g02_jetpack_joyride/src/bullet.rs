@@ -31,7 +31,7 @@ pub fn send_despawn_on_bullet_too_low(
 ) {
     for (bullet, transform) in bullets {
         if transform.translation.y <= constants::BULLET_DESPAWN_Y {
-            message_writer.write(BulletHit::new(bullet));
+            message_writer.write(BulletHit::new_ground(bullet));
         }
     }
 }

@@ -45,7 +45,7 @@ pub fn collide_enemy_and_bullet(
     for (enemy, enemy_collider) in enemies {
         for (bullet, bullet_collider) in bullets {
             if enemy_collider.is_collides(bullet_collider) {
-                bullet_hit.write(BulletHit::new(bullet));
+                bullet_hit.write(BulletHit::new_enemy(bullet));
 
                 commands.entity(enemy).insert(Dead);
             }

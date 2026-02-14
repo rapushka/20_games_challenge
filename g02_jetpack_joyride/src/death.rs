@@ -69,7 +69,6 @@ pub fn despawn_corpse_offscreen(
     for (character, transform) in characters {
         if transform.translation.y < -constants::CANVAS_HALF_SIZE.y - 50.0 {
             commands.entity(character).despawn();
-            info!("DESPAWNED!");
         }
     }
 }
