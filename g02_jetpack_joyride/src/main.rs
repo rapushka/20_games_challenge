@@ -130,7 +130,7 @@ fn main() -> AppExit {
             ascend_player,
             update_is_ascending,
             descent_player,
-            player_die,
+            on_player_touched_enemy,
 
             // enemies
             tick_enemy_spawn_timer,
@@ -165,6 +165,7 @@ fn main() -> AppExit {
             // sounds
             play_sound_on_bullet_hit_enemy,
             play_sound_on_shoot,
+            play_sound_on_player_dead,
 
             // death
             (
