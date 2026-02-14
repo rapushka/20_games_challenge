@@ -1,5 +1,8 @@
 use crate::prelude::*;
 
+pub use hit_detection::*;
+mod hit_detection;
+
 // -> Player
 #[derive(Message)]
 pub struct Shoot(pub Entity);
@@ -22,13 +25,13 @@ pub fn fly_bullets(
     }
 }
 
-pub fn despawn_hit_bullets(
-    mut commands: Commands,
+pub fn send_despawn_on_bullet_too_low(
+    mut message_writer: MessageWriter<BulletHit>,
     bullets: Query<(Entity, &Transform), With<Bullet>>,
 ) {
     for (bullet, transform) in bullets {
         if transform.translation.y <= constants::BULLET_DESPAWN_Y {
-            commands.entity(bullet).despawn();
+            message_writer.write(BulletHit::new(bullet));
         }
     }
 }

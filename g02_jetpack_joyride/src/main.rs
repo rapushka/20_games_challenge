@@ -111,6 +111,7 @@ fn main() -> AppExit {
         .add_message::<Shoot>()
         .add_message::<SpawnEnemy>()
         .add_message::<PlayerTouchedEnemy>()
+        .add_message::<BulletHit>()
 
         .add_systems(Startup, (
             spawn_camera,
@@ -146,6 +147,7 @@ fn main() -> AppExit {
             tick_shooting_timer_while_ascending,
             shoot_bullets,
             fly_bullets,
+            send_despawn_on_bullet_too_low,
             despawn_hit_bullets,
 
             // score

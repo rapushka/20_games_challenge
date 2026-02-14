@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 pub use collider::*;
-use crate::bullet::Bullet;
+use crate::bullet::{Bullet, BulletHit};
 use crate::death::Dead;
 use crate::enemies::Enemy;
 use crate::game::IsGameStarted;
@@ -33,8 +33,9 @@ pub fn collide_player_and_enemy(
 
 pub fn collide_enemy_and_bullet(
     mut commands: Commands,
+    mut bullet_hit: MessageWriter<BulletHit>,
     enemies: Query<(Entity, &Collider), (With<Enemy>, Without<Dead>)>,
-    bullets: Query<&Collider, With<Bullet>>,
+    bullets: Query<(Entity, &Collider), With<Bullet>>,
     is_game_started: Res<IsGameStarted>,
 ) {
     if !is_game_started.is_started() {
@@ -42,10 +43,11 @@ pub fn collide_enemy_and_bullet(
     }
 
     for (enemy, enemy_collider) in enemies {
-        for bullet_collider in bullets {
+        for (bullet, bullet_collider) in bullets {
             if enemy_collider.is_collides(bullet_collider) {
-                commands.entity(enemy)
-                    .insert(Dead);
+                bullet_hit.write(BulletHit::new(bullet));
+
+                commands.entity(enemy).insert(Dead);
             }
         }
     }
