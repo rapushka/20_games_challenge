@@ -2,3 +2,7 @@
 /target
 # This file contains environment-specific configuration like linker settings
 .cargo/config.toml
+
+/.idea
+# gameplay "Save File"
+/g03_river_raid_prefs.ron
