@@ -1,13 +1,12 @@
 use std::time::Duration;
+use bevy::audio::Volume;
 use rand::Rng;
 use crate::prelude::*;
 
 pub use spawn::*;
-use crate::bullet::{Bullet, Shoot};
-use crate::collision_detection::Collider;
-use crate::player::{Ascending, Player};
-use crate::utils;
-use crate::utils::from_hex;
+use crate::bullet::*;
+use crate::collision_detection::*;
+use crate::player::*;
 
 mod spawn;
 
@@ -68,7 +67,7 @@ pub fn shoot_bullets(
             Bullet,
             Sprite {
                 custom_size: Some(constants::BULLET_SIZE),
-                color: from_hex(constants::BULLET_COLOR),
+                color: utils::from_hex(constants::BULLET_COLOR),
                 ..default()
             },
             Transform {
@@ -77,6 +76,24 @@ pub fn shoot_bullets(
                 ..default()
             },
             Collider::new(2.5, Vec2::ZERO),
+        ));
+    }
+}
+
+pub fn play_sound_on_shoot(
+    mut commands: Commands,
+    mut message_reader: MessageReader<BulletHit>,
+    asset_server: Res<AssetServer>,
+) {
+    let sound = asset_server.load(asset_path::SHOOT_SOUND);
+
+    for _ in message_reader.read() {
+        commands.spawn((
+            AudioPlayer::new(sound.clone()),
+            PlaybackSettings {
+                volume: Volume::Linear(0.05),
+                ..PlaybackSettings::DESPAWN
+            },
         ));
     }
 }

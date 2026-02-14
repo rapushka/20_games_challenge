@@ -68,7 +68,7 @@ pub mod asset_path {
     pub const LOOSE_SOUND: &str = "player/lose-d.ogg";
 
     pub const WEAPON_IMAGE: &str = "weapon/riffle.png";
-    pub const SHOOT_SOUND: &str = "player/shoot-f.ogg";
+    pub const SHOOT_SOUND: &str = "player/shoot-g.ogg";
 
     pub const ENEMIES_IMAGE: &str = "enemy/tilemap.png";
     pub const ENEMY_HIT_SOUND: &str = "enemy/hurt-a.ogg";
@@ -77,7 +77,7 @@ pub mod asset_path {
 }
 
 pub mod prelude;
-mod utils;
+pub mod utils;
 mod animation;
 mod player;
 mod weapon;
@@ -164,6 +164,7 @@ fn main() -> AppExit {
 
             // sounds
             play_sound_on_bullet_hit_enemy,
+            play_sound_on_shoot,
 
             // death
             (
