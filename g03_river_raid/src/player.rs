@@ -1,8 +1,10 @@
 use crate::camera::CameraFollowYTarget;
+use crate::player::movement::ScrollSpeedMultiplier;
 use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 
 pub mod plugin;
+mod movement;
 
 #[derive(Component)]
 pub struct Player;
@@ -14,6 +16,7 @@ pub fn spawn_player(
         Name::new("Player"),
         Player,
         CameraFollowYTarget,
+        ScrollSpeedMultiplier::default(),
         Sprite {
             color: utils::from_hex("#ffffff"),
             custom_size: Some(vec2(100.0, 150.0)),
@@ -22,34 +25,4 @@ pub fn spawn_player(
         WorldPosition::ZERO,
         ZOrder::Player,
     ));
-}
-
-pub fn move_player_x(
-    players: Query<&mut WorldPosition, With<Player>>,
-    input: Res<ButtonInput<KeyCode>>,
-    time: Res<Time<Fixed>>,
-) {
-    for mut position in players {
-        let mut direction = 0.0;
-
-        if input.pressed(KeyCode::ArrowLeft) {
-            direction = -1.0;
-        }
-
-        if input.pressed(KeyCode::ArrowRight) {
-            direction = 1.0;
-        }
-
-        let scaled_speed = constants::player::HORIZONTAL_SPEED * time.delta_secs();
-        position.x += scaled_speed * direction;
-    }
-}
-
-pub fn player_fly_towards(
-    players: Query<&mut WorldPosition, With<Player>>,
-    time: Res<Time<Fixed>>,
-) {
-    for mut position in players {
-        position.y += time.delta_secs() * constants::player::FLY_SPEED;
-    }
 }

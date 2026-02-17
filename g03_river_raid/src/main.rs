@@ -48,12 +48,14 @@ fn tmp_spawn_background(
 ) {
     let image = asset_server.load(asset_path::TMP_BACKGROUND);
 
-    commands.spawn((
-        Sprite {
-            image,
-            ..default()
-        },
-        WorldPosition::ZERO,
-        ZOrder::Background,
-    ));
+    for y in 0..10 {
+        commands.spawn((
+            Sprite {
+                image: image.clone(),
+                ..default()
+            },
+            WorldPosition::new(0.0, y as f32 * 200.0),
+            ZOrder::Background,
+        ));
+    }
 }
