@@ -1,4 +1,4 @@
-use crate::camera::CameraFollowTarget;
+use crate::camera::CameraFollowYTarget;
 use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 
@@ -13,7 +13,7 @@ pub fn spawn_player(
     commands.spawn((
         Name::new("Player"),
         Player,
-        CameraFollowTarget,
+        CameraFollowYTarget,
         Sprite {
             color: utils::from_hex("#ffffff"),
             custom_size: Some(vec2(100.0, 150.0)),

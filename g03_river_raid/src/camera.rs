@@ -3,7 +3,7 @@ use crate::prelude::*;
 use crate::utils::ResultExt;
 
 #[derive(Component)]
-pub struct CameraFollowTarget;
+pub struct CameraFollowYTarget;
 
 pub struct CameraPlugin;
 
@@ -15,7 +15,7 @@ impl Plugin for CameraPlugin {
             ))
 
             .add_systems(Update, (
-                camera_follow,
+                camera_follow_y,
             ))
         ;
     }
@@ -30,9 +30,9 @@ fn spawn_camera(
     ));
 }
 
-fn camera_follow(
+fn camera_follow_y(
     cameras: Query<&mut WorldPosition, With<Camera>>,
-    targets: Query<&WorldPosition, (With<CameraFollowTarget>, Without<Camera>)>,
+    targets: Query<&WorldPosition, (With<CameraFollowYTarget>, Without<Camera>)>,
 ) {
     let result = targets.single();
     let Some(target) = result.zero_or_one() else {
@@ -40,6 +40,6 @@ fn camera_follow(
     };
 
     for mut position in cameras {
-        *position = **target;
+        position.y = target.y;
     }
 }
