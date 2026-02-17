@@ -15,7 +15,7 @@ pub fn spawn_player(
     commands.spawn((
         Name::new("Player"),
         Player,
-        CameraFollowYTarget,
+        CameraFollowYTarget::new(250.0),
         ScrollSpeedMultiplier::default(),
         Sprite {
             color: utils::from_hex("#ffffff"),
