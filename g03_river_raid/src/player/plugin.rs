@@ -9,6 +9,7 @@ impl Plugin for PlayerPlugin {
 
             .add_systems(FixedUpdate, (
                 move_player_x,
+                player_fly_towards,
             ))
         ;
     }

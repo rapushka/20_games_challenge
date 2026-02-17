@@ -43,3 +43,12 @@ pub fn move_player_x(
         position.x += scaled_speed * direction;
     }
 }
+
+pub fn player_fly_towards(
+    players: Query<&mut WorldPosition, With<Player>>,
+    time: Res<Time<Fixed>>,
+) {
+    for mut position in players {
+        position.y += time.delta_secs() * constants::player::FLY_SPEED;
+    }
+}
