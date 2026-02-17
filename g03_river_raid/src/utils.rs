@@ -13,11 +13,11 @@ pub fn from_hex(hex: &'static str) -> Color {
 }
 
 pub trait ResultExt<T> {
-    fn zero_or_one(&self) -> Option<&T>;
+    fn zero_or_one(self) -> Option<T>;
 }
 
 impl<T> ResultExt<T> for Result<T, QuerySingleError> {
-    fn zero_or_one(&self) -> Option<&T> {
+    fn zero_or_one(self) -> Option<T> {
         match self {
             Ok(target) => Some(target),
             Err(QuerySingleError::NoEntities(_)) => None,
