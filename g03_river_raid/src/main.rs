@@ -43,7 +43,10 @@ fn proceed_to_initialize(
 fn spawn_camera(
     mut commands: Commands,
 ) {
-    commands.spawn(Camera2d);
+    commands.spawn((
+        Camera2d,
+        WorldPosition::ZERO,
+    ));
 }
 
 fn tmp_spawn_background(
