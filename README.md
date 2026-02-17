@@ -3,4 +3,4 @@
 # Time spent
 1. Pong = 6:14:39
 2. Jetpack Joyride = 15:03:16
-3. River Raid = 1:20:02 (WIP)
+3. River Raid = 3:07:57 (WIP)
