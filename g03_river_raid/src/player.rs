@@ -1,3 +1,5 @@
+use bevy_inspector_egui::egui::PopupAnchor::Position;
+use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 
 pub mod plugin;
@@ -16,16 +18,17 @@ pub fn spawn_player(
             custom_size: Some(vec2(100.0, 150.0)),
             ..default()
         },
-        Transform::default(),
+        WorldPosition::ZERO,
+        ZOrder::Player,
     ));
 }
 
 pub fn move_player_x(
-    players: Query<&mut Transform, With<Player>>,
+    players: Query<&mut WorldPosition, With<Player>>,
     input: Res<ButtonInput<KeyCode>>,
     time: Res<Time<Fixed>>,
 ) {
-    for mut transform in players {
+    for mut position in players {
         let mut direction = 0.0;
 
         if input.pressed(KeyCode::ArrowLeft) {
@@ -37,6 +40,6 @@ pub fn move_player_x(
         }
 
         let scaled_speed = constants::player::HORIZONTAL_SPEED * time.delta_secs();
-        transform.translation.x += scaled_speed * direction;
+        position.x += scaled_speed * direction;
     }
 }

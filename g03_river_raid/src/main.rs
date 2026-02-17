@@ -1,4 +1,3 @@
-use bevy_inspector_egui::egui::PopupAnchor::Position;
 use crate::player::plugin::PlayerPlugin;
 use crate::position::*;
 use crate::prelude::*;
@@ -29,7 +28,7 @@ fn main() -> AppExit {
         ).chain())
 
         .add_systems(PostUpdate, (
-            update_positions,
+            update_translations,
         ))
 
         .run()
@@ -58,7 +57,7 @@ fn tmp_spawn_background(
             image,
             ..default()
         },
-        WorldPosition::new(0.0, 0.0),
+        WorldPosition::ZERO,
         ZOrder::Background,
     ));
 }

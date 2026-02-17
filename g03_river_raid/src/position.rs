@@ -4,7 +4,9 @@ use crate::prelude::*;
 pub struct WorldPosition(Vec2);
 
 impl WorldPosition {
-    pub fn new(x: f32, y: f32) -> Self {
+    pub const ZERO: Self = WorldPosition::new(0.0, 0.0);
+
+    pub const fn new(x: f32, y: f32) -> Self {
         Self(vec2(x, y))
     }
 }
@@ -22,7 +24,7 @@ impl ZOrder {
     }
 }
 
-pub fn update_positions(
+pub fn update_translations(
     entities: Query<(&mut Transform, &WorldPosition, Option<&ZOrder>)>,
 ) {
     for (mut transform, position, z_order) in entities {
