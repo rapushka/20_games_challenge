@@ -1,4 +1,6 @@
+use bevy_inspector_egui::egui::PopupAnchor::Position;
 use crate::player::plugin::PlayerPlugin;
+use crate::position::*;
 use crate::prelude::*;
 
 mod prelude;
@@ -7,6 +9,7 @@ pub mod asset_path;
 pub mod utils;
 mod app_state;
 mod player;
+mod position;
 
 fn main() -> AppExit {
     App::new()
@@ -24,6 +27,10 @@ fn main() -> AppExit {
             tmp_spawn_background, // TODO: REMOVE
             proceed_to_initialize,
         ).chain())
+
+        .add_systems(PostUpdate, (
+            update_positions,
+        ))
 
         .run()
 }
@@ -51,6 +58,7 @@ fn tmp_spawn_background(
             image,
             ..default()
         },
-        Transform::from_xyz(0.0, 0.0, -100.0),
+        WorldPosition::new(0.0, 0.0),
+        ZOrder::Background,
     ));
 }
