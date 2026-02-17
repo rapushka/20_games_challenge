@@ -1,6 +1,6 @@
 use crate::prelude::*;
 
-#[derive(Component, Deref, DerefMut, Default)]
+#[derive(Component, Deref, DerefMut, Default, Copy, Clone)]
 pub struct WorldPosition(Vec2);
 
 impl WorldPosition {

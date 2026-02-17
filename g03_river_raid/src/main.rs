@@ -1,3 +1,4 @@
+use crate::camera::CameraPlugin;
 use crate::player::plugin::PlayerPlugin;
 use crate::position::*;
 use crate::prelude::*;
@@ -6,9 +7,10 @@ mod prelude;
 pub mod constants;
 pub mod asset_path;
 pub mod utils;
+mod position;
 mod app_state;
 mod player;
-mod position;
+mod camera;
 
 fn main() -> AppExit {
     App::new()
@@ -18,11 +20,11 @@ fn main() -> AppExit {
 
             // River Raid
             PlayerPlugin,
+            CameraPlugin,
         ))
         .init_state::<AppState>()
 
         .add_systems(OnEnter(AppState::Bootstrap), (
-            spawn_camera,
             tmp_spawn_background, // TODO: REMOVE
             proceed_to_initialize,
         ).chain())
@@ -38,15 +40,6 @@ fn proceed_to_initialize(
     mut next_state: ResMut<NextState<AppState>>
 ) {
     next_state.set(AppState::Initialize)
-}
-
-fn spawn_camera(
-    mut commands: Commands,
-) {
-    commands.spawn((
-        Camera2d,
-        WorldPosition::ZERO,
-    ));
 }
 
 fn tmp_spawn_background(
