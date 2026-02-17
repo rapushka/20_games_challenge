@@ -3,6 +3,7 @@ use crate::prelude::*;
 
 mod prelude;
 pub mod constants;
+pub mod asset_path;
 pub mod utils;
 mod app_state;
 mod player;
@@ -20,6 +21,7 @@ fn main() -> AppExit {
 
         .add_systems(OnEnter(AppState::Bootstrap), (
             spawn_camera,
+            tmp_spawn_background, // TODO: REMOVE
             proceed_to_initialize,
         ).chain())
 
@@ -36,4 +38,19 @@ fn spawn_camera(
     mut commands: Commands,
 ) {
     commands.spawn(Camera2d);
+}
+
+fn tmp_spawn_background(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+) {
+    let image = asset_server.load(asset_path::TMP_BACKGROUND);
+
+    commands.spawn((
+        Sprite {
+            image,
+            ..default()
+        },
+        Transform::from_xyz(0.0, 0.0, -100.0),
+    ));
 }

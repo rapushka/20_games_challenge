@@ -1,0 +1,1 @@
+pub const TMP_BACKGROUND: &str = "tmp/bg_v4.png";
