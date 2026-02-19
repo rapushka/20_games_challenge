@@ -1,5 +1,6 @@
-use crate::camera::CameraPlugin;
-use crate::player::plugin::PlayerPlugin;
+use crate::camera::*;
+use crate::level::*;
+use crate::player::plugin::*;
 use crate::position::*;
 use crate::prelude::*;
 
@@ -11,6 +12,7 @@ mod position;
 mod app_state;
 mod player;
 mod camera;
+mod level;
 
 fn main() -> AppExit {
     App::new()
@@ -21,41 +23,25 @@ fn main() -> AppExit {
             // River Raid
             PlayerPlugin,
             CameraPlugin,
+            LevelPlugin,
         ))
         .init_state::<AppState>()
 
         .add_systems(OnEnter(AppState::Bootstrap), (
-            tmp_spawn_background, // TODO: REMOVE
-            proceed_to_initialize,
+            |mut next_state: ResMut<NextState<AppState>>| {
+                next_state.set(AppState::Initialize);
+            },
         ).chain())
+
+        .add_systems(OnEnter(AppState::Initialize), (
+            |mut next_state: ResMut<NextState<AppState>>| {
+                next_state.set(AppState::Playing);
+            },
+        ))
 
         .add_systems(PostUpdate, (
             update_translations,
         ))
 
         .run()
-}
-
-fn proceed_to_initialize(
-    mut next_state: ResMut<NextState<AppState>>
-) {
-    next_state.set(AppState::Initialize)
-}
-
-fn tmp_spawn_background(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-) {
-    let image = asset_server.load(asset_path::TMP_BACKGROUND);
-
-    for y in 0..10 {
-        commands.spawn((
-            Sprite {
-                image: image.clone(),
-                ..default()
-            },
-            WorldPosition::new(0.0, y as f32 * 200.0),
-            ZOrder::Background,
-        ));
-    }
 }
