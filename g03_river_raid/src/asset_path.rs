@@ -1,1 +1,2 @@
-pub const TMP_BACKGROUND: &str = "tmp/bg_v4.png";
+pub const PLAYER: &str = "player/jet_fighter.png";
+pub const ENVIRONMENT_TILESET: &str = "environment/tileset.png";

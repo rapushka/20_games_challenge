@@ -11,17 +11,16 @@ pub struct Player;
 
 pub fn spawn_player(
     mut commands: Commands,
+    asset_server: Res<AssetServer>,
 ) {
+    let image = asset_server.load(asset_path::PLAYER);
+
     commands.spawn((
         Name::new("Player"),
         Player,
         CameraFollowYTarget::new(250.0),
         ScrollSpeedMultiplier::default(),
-        Sprite {
-            color: utils::from_hex("#ffffff"),
-            custom_size: Some(vec2(100.0, 150.0)),
-            ..default()
-        },
+        Sprite::from_image(image),
         WorldPosition::ZERO,
         ZOrder::Player,
     ));
