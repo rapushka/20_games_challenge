@@ -1,6 +1,7 @@
 use crate::prelude::*;
 
-pub use getters::*;
+use crate::level::TILE_SIZE;
+
 mod getters;
 
 #[derive(Resource)]
@@ -30,7 +31,8 @@ pub struct EnvironmentTiles {
 
 impl FromWorld for EnvironmentTiles {
     fn from_world(world: &mut World) -> Self {
-        let size = uvec2(128, 128);
+        let tile_side = TILE_SIZE as u32;
+        let size = uvec2(tile_side, tile_side);
         let layout = TextureAtlasLayout::from_grid(size, 6, 3, None, None);
 
         let mut texture_atlases = world
