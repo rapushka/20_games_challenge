@@ -26,6 +26,7 @@ fn main() -> AppExit {
             LevelPlugin,
         ))
         .init_state::<AppState>()
+        .init_resource::<EnvironmentTiles>()
 
         .add_systems(OnEnter(AppState::Bootstrap), (
             |mut next_state: ResMut<NextState<AppState>>| {

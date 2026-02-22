@@ -2,9 +2,12 @@ use crate::level::types::{RiverLineType, TileType};
 use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 
-const TILE_SIZE: f32 = 100.0;
+pub use tiles::*;
+
+const TILE_SIZE: f32 = 128.0;
 
 mod types;
+mod tiles;
 
 pub struct LevelPlugin;
 
@@ -19,9 +22,12 @@ impl Plugin for LevelPlugin {
 }
 
 fn spawn_level(
-    mut commands: Commands
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    environment: Res<EnvironmentTiles>,
 ) {
     let mut line = RiverLineType::Standard;
+    let image = asset_server.load(asset_path::ENVIRONMENT_TILESET);
 
     for line_index in 0..10 {
         line = line.random_next();
@@ -35,7 +41,7 @@ fn spawn_level(
 
             commands.spawn((
                 Name::new("Tile"),
-                create_bundle(*tile_type),
+                create_bundle(&environment, &image, *tile_type),
                 WorldPosition::new(i * TILE_SIZE + offset_x, line_index * TILE_SIZE),
                 ZOrder::Background,
             ));
@@ -43,12 +49,17 @@ fn spawn_level(
     }
 }
 
-fn create_bundle(tile_type: TileType) -> impl Bundle {
-    let tile_size = Vec2::splat(TILE_SIZE);
+fn create_bundle(tiles: &Res<EnvironmentTiles>, image: &Handle<Image>, tile_type: TileType) -> impl Bundle {
+    let create = |atlas: TextureAtlas| {
+        Sprite::from_atlas_image(
+            image.clone(),
+            atlas,
+        )
+    };
 
     match tile_type {
-        TileType::Water => (Sprite::from_color(utils::from_hex("#54a9ff"), tile_size)),
-        TileType::BankLeft => (Sprite::from_color(utils::from_hex("#45a87d"), tile_size)),
-        TileType::BankRight => (Sprite::from_color(utils::from_hex("#45a87d"), tile_size)),
+        TileType::Water => create(tiles.outer_center_center()),
+        TileType::BankLeft => create(tiles.outer_center_left()),
+        TileType::BankRight => create(tiles.outer_center_right()),
     }
 }
