@@ -3,6 +3,7 @@ use crate::level::*;
 use crate::player::plugin::*;
 use crate::position::*;
 use crate::prelude::*;
+use crate::random::Random;
 
 mod prelude;
 pub mod constants;
@@ -13,6 +14,7 @@ mod app_state;
 mod player;
 mod camera;
 mod level;
+mod random;
 
 fn main() -> AppExit {
     App::new()
@@ -27,6 +29,7 @@ fn main() -> AppExit {
         ))
         .init_state::<AppState>()
         .init_resource::<EnvironmentTiles>()
+        .init_resource::<Random>()
 
         .add_systems(OnEnter(AppState::Bootstrap), (
             |mut next_state: ResMut<NextState<AppState>>| {

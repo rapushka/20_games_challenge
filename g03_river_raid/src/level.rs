@@ -3,6 +3,7 @@ use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 
 pub use tiles::*;
+use crate::random::Random;
 
 const TILE_SIZE: f32 = 128.0;
 
@@ -25,12 +26,13 @@ fn spawn_level(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     environment: Res<EnvironmentTiles>,
+    mut random: ResMut<Random>,
 ) {
     let mut line = RiverLineType::Standard;
     let image = asset_server.load(asset_path::ENVIRONMENT_TILESET);
 
     for line_index in 0..10 {
-        line = line.random_next();
+        line = line.random_next(&mut random);
 
         let tiles = line.get_tiles();
 
@@ -59,7 +61,13 @@ fn create_bundle(tiles: &Res<EnvironmentTiles>, image: &Handle<Image>, tile_type
 
     match tile_type {
         TileType::Water => create(tiles.outer_center_center()),
-        TileType::BankLeft => create(tiles.outer_center_left()),
-        TileType::BankRight => create(tiles.outer_center_right()),
+        TileType::BankOutLeftMiddle => create(tiles.outer_center_left()),
+        TileType::BankOutRightMiddle => create(tiles.outer_center_right()),
+        TileType::BankInLeftMiddle => create(tiles.inner_center_left()),
+        TileType::BankInRightMiddle => create(tiles.inner_center_right()),
+        TileType::BankLeftBottom => create(tiles.inner_bottom_left()),
+        TileType::BankRightBottom => create(tiles.inner_bottom_right()),
+        TileType::BankLeftTop => create(tiles.inner_top_left()),
+        TileType::BankRightTop => create(tiles.inner_top_right()),
     }
 }
