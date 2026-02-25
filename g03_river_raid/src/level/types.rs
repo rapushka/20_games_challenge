@@ -30,7 +30,8 @@ impl RiverLineType {
         let island_end = RiverLineType::IslandsEnd;
 
         let variants = match self {
-            RiverLineType::Standard => vec![standard, island_start],
+            // standard is repeated, so it will have more chances
+            RiverLineType::Standard => vec![standard, standard, island_start],
             RiverLineType::IslandsStart => vec![island_mid, island_end],
             RiverLineType::IslandsMid => vec![island_mid, island_end],
             RiverLineType::IslandsEnd => vec![standard],

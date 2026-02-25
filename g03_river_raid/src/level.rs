@@ -31,7 +31,7 @@ fn spawn_level(
     let mut line = RiverLineType::Standard;
     let image = asset_server.load(asset_path::ENVIRONMENT_TILESET);
 
-    for line_index in 0..10 {
+    for line_index in 0..100 {
         line = line.random_next(&mut random);
 
         let tiles = line.get_tiles();
@@ -39,7 +39,7 @@ fn spawn_level(
         for (i, tile_type) in tiles.iter().enumerate() {
             let line_index = line_index as f32;
             let i = i as f32;
-            let offset_x = -300f32;
+            let offset_x = -450.0;
 
             commands.spawn((
                 Name::new("Tile"),
