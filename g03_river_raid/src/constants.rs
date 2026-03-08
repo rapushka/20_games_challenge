@@ -15,4 +15,5 @@ pub mod input {
     pub const MOVE_DECELERATE: [KeyCode; 2] = [KeyCode::ArrowDown, KeyCode::KeyS];
 
     pub const TOGGLE_DEBUG: KeyCode = KeyCode::Backquote;
+    pub const DEBUG_STOP_TIME: KeyCode = KeyCode::KeyT;
 }

@@ -13,6 +13,23 @@ impl Plugin for DebugPlugin {
                 WorldInspectorPlugin::new()
                     .run_if(input_toggle_active(false, constants::input::TOGGLE_DEBUG)),
             ))
+
+            .add_systems(Update, (
+                stop_time,
+            ))
         ;
+    }
+}
+
+fn stop_time(
+    mut time: ResMut<Time<Virtual>>,
+    input: Res<ButtonInput<KeyCode>>,
+) {
+    if input.just_pressed(constants::input::DEBUG_STOP_TIME) {
+        if time.is_paused() {
+            time.unpause();
+        } else {
+            time.pause();
+        }
     }
 }

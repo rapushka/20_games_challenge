@@ -21,13 +21,13 @@ mod debug;
 fn main() -> AppExit {
     App::new()
         .add_plugins((
-            // Third Party
             DefaultPlugins,
-
-            // River Raid
             PlayerPlugin,
             CameraPlugin,
             LevelPlugin,
+
+            // debug
+            #[cfg(debug_assertions)]
             DebugPlugin,
         ))
         .init_state::<AppState>()
