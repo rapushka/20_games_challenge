@@ -1,4 +1,5 @@
 use crate::camera::*;
+use crate::collision_detection::*;
 use crate::debug::*;
 use crate::level::*;
 use crate::player::plugin::*;
@@ -17,6 +18,7 @@ mod camera;
 mod level;
 mod random;
 mod debug;
+mod collision_detection;
 
 fn main() -> AppExit {
     App::new()
@@ -25,6 +27,7 @@ fn main() -> AppExit {
             PlayerPlugin,
             CameraPlugin,
             LevelPlugin,
+            CollisionDetectionPlugin,
 
             // debug
             #[cfg(debug_assertions)]
