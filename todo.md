@@ -2,6 +2,6 @@ There will be short description of the task, i was working on before finishing t
 
 # Feb 25
 Just added randomization for tiles spawn
-- [ ] bug: there's single green pixel on the right edge of the island
+- [x] bug: there's single green pixel on the right edge of the island
 - [ ] add colliders to the bank
 - [ ] find nice seed

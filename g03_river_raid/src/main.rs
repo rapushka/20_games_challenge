@@ -1,9 +1,10 @@
 use crate::camera::*;
+use crate::debug::*;
 use crate::level::*;
 use crate::player::plugin::*;
 use crate::position::*;
 use crate::prelude::*;
-use crate::random::Random;
+use crate::random::*;
 
 mod prelude;
 pub mod constants;
@@ -15,6 +16,7 @@ mod player;
 mod camera;
 mod level;
 mod random;
+mod debug;
 
 fn main() -> AppExit {
     App::new()
@@ -26,6 +28,7 @@ fn main() -> AppExit {
             PlayerPlugin,
             CameraPlugin,
             LevelPlugin,
+            DebugPlugin,
         ))
         .init_state::<AppState>()
         .init_resource::<EnvironmentTiles>()

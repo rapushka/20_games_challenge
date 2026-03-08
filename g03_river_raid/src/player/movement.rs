@@ -11,8 +11,8 @@ pub fn move_player_x(
     input: Res<ButtonInput<KeyCode>>,
     time: Res<Time<Fixed>>,
 ) {
-    let left = input.any_pressed([KeyCode::ArrowLeft, KeyCode::KeyA]);
-    let right = input.any_pressed([KeyCode::ArrowRight, KeyCode::KeyD]);
+    let left = input.any_pressed(constants::input::MOVE_LEFT);
+    let right = input.any_pressed(constants::input::MOVE_RIGHT);
 
     for mut position in players {
         let mut direction = 0.0;

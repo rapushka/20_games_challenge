@@ -7,8 +7,8 @@ pub fn update_scroll_speed_multiplier(
     entities: Query<&mut ScrollSpeedMultiplier>,
     input: Res<ButtonInput<KeyCode>>,
 ) {
-    let up = input.any_pressed([KeyCode::ArrowUp, KeyCode::KeyW]);
-    let down = input.any_pressed([KeyCode::ArrowDown, KeyCode::KeyS]);
+    let up = input.any_pressed(constants::input::MOVE_ACCELERATE);
+    let down = input.any_pressed(constants::input::MOVE_DECELERATE);
 
     let direction = up as i8 - down as i8;
 
