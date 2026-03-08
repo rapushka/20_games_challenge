@@ -2,6 +2,7 @@ use crate::camera::*;
 use crate::collision_detection::*;
 use crate::debug::*;
 use crate::level::*;
+use crate::order::{SystemOrderPlugin, UpdateOrder};
 use crate::player::plugin::*;
 use crate::position::*;
 use crate::prelude::*;
@@ -11,6 +12,7 @@ mod prelude;
 pub mod constants;
 pub mod asset_path;
 pub mod utils;
+mod order;
 mod position;
 mod app_state;
 mod player;
@@ -24,6 +26,7 @@ fn main() -> AppExit {
     App::new()
         .add_plugins((
             DefaultPlugins,
+            SystemOrderPlugin,
             PlayerPlugin,
             CameraPlugin,
             LevelPlugin,
@@ -34,6 +37,7 @@ fn main() -> AppExit {
             DebugPlugin,
         ))
         .init_state::<AppState>()
+
         .init_resource::<EnvironmentTiles>()
         .init_resource::<Random>()
 
@@ -49,9 +53,9 @@ fn main() -> AppExit {
             },
         ))
 
-        .add_systems(PostUpdate, (
+        .add_systems(Update, (
             update_translations,
-        ))
+        ).in_set(UpdateOrder::UpdateTransforms))
 
         .run()
 }

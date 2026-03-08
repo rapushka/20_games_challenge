@@ -3,6 +3,7 @@ use crate::prelude::*;
 use bevy_inspector_egui::bevy_egui::EguiPlugin;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
 use crate::collision_detection::debug_colliders;
+use crate::order::UpdateOrder;
 
 pub struct DebugPlugin;
 
@@ -15,12 +16,12 @@ impl Plugin for DebugPlugin {
                     .run_if(debug_mode_condition()),
             ))
 
-            .add_systems(PostUpdate, (
+            .add_systems(Update, (
                 (
                     debug_colliders,
                     stop_time,
                 ).run_if(debug_mode_condition()),
-            ))
+            ).in_set(UpdateOrder::Debug))
         ;
     }
 }

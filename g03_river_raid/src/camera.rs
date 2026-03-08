@@ -1,3 +1,4 @@
+use crate::order::UpdateOrder;
 use crate::position::WorldPosition;
 use crate::prelude::*;
 use crate::utils::ResultExt;
@@ -24,7 +25,7 @@ impl Plugin for CameraPlugin {
 
             .add_systems(Update, (
                 camera_follow_y,
-            ))
+            ).in_set(UpdateOrder::Camera))
         ;
     }
 }
