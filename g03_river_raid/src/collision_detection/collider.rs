@@ -1,4 +1,5 @@
 use bevy::math::bounding::Aabb2d;
+use crate::position::WorldPosition;
 use crate::prelude::{Component, Gizmos, Query, Srgba, Transform, Vec2};
 
 pub const FUCHSIA: Srgba = Srgba::rgb(1.0, 0.0, 1.0);
@@ -33,10 +34,10 @@ impl Collider {
 }
 
 pub fn update_colliders(
-    colliders: Query<(&mut Collider, &Transform)>
+    colliders: Query<(&mut Collider, &WorldPosition)>
 ) {
-    for (mut collider, transform) in colliders {
-        collider.set_center(transform.translation.truncate());
+    for (mut collider, position) in colliders {
+        collider.set_center(**position);
     }
 }
 

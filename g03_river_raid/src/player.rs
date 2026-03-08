@@ -1,4 +1,5 @@
 use crate::camera::CameraFollowYTarget;
+use crate::collision_detection::Collider;
 use crate::player::movement::ScrollSpeedMultiplier;
 use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
@@ -23,5 +24,6 @@ pub fn spawn_player(
         Sprite::from_image(image),
         WorldPosition::ZERO,
         ZOrder::Player,
+        Collider::new(vec2(100.0, 100.0), Vec2::ZERO),
     ));
 }

@@ -15,7 +15,7 @@ impl Plugin for DebugPlugin {
                     .run_if(debug_mode_condition()),
             ))
 
-            .add_systems(Update, (
+            .add_systems(PostUpdate, (
                 (
                     debug_colliders,
                     stop_time,
