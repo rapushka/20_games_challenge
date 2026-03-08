@@ -33,7 +33,7 @@ impl FromWorld for EnvironmentTiles {
     fn from_world(world: &mut World) -> Self {
         let tile_side = TILE_SIZE as u32;
         let size = uvec2(tile_side, tile_side);
-        let layout = TextureAtlasLayout::from_grid(size, 6, 3, None, None);
+        let layout = TextureAtlasLayout::from_grid(size, 7, 3, None, None);
 
         let mut texture_atlases = world
             .get_resource_mut::<Assets<TextureAtlasLayout>>()
@@ -46,21 +46,21 @@ impl FromWorld for EnvironmentTiles {
             inner_top_left: 0,
             inner_top_center: 1,
             inner_top_right: 2,
-            inner_center_left: 6,
-            inner_center_center: 7,
-            inner_center_right: 8,
-            inner_bottom_left: 12,
-            inner_bottom_center: 13,
-            inner_bottom_right: 14,
-            outer_top_left: 3,
-            outer_top_center: 4,
-            outer_top_right: 5,
-            outer_center_left: 9,
-            outer_center_center: 10,
-            outer_center_right: 11,
-            outer_bottom_left: 15,
-            outer_bottom_center: 16,
-            outer_bottom_right: 17,
+            inner_center_left: 7,
+            inner_center_center: 8,
+            inner_center_right: 9,
+            inner_bottom_left: 14,
+            inner_bottom_center: 15,
+            inner_bottom_right: 16,
+            outer_top_left: 4,
+            outer_top_center: 5,
+            outer_top_right: 6,
+            outer_center_left: 11,
+            outer_center_center: 12,
+            outer_center_right: 13,
+            outer_bottom_left: 18,
+            outer_bottom_center: 19,
+            outer_bottom_right: 20,
         }
     }
 }
