@@ -24,6 +24,6 @@ pub fn spawn_player(
         Sprite::from_image(image),
         WorldPosition::ZERO,
         ZOrder::Player,
-        Collider::new(vec2(100.0, 100.0), Vec2::ZERO),
+        Collider::new(vec2(25.0, 90.0), Vec2::ZERO),
     ));
 }

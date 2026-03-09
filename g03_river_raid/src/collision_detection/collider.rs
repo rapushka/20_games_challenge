@@ -37,7 +37,8 @@ pub fn update_colliders(
     colliders: Query<(&mut Collider, &WorldPosition)>
 ) {
     for (mut collider, position) in colliders {
-        collider.set_center(**position);
+        let offset = collider.offset;
+        collider.set_center(**position + offset);
     }
 }
 

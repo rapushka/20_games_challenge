@@ -2,7 +2,7 @@ use crate::camera::*;
 use crate::collision_detection::*;
 use crate::debug::*;
 use crate::level::*;
-use crate::order::{SystemOrderPlugin, UpdateOrder};
+use crate::order::*;
 use crate::player::plugin::*;
 use crate::position::*;
 use crate::prelude::*;

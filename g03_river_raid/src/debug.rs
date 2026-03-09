@@ -18,8 +18,12 @@ impl Plugin for DebugPlugin {
 
             .add_systems(Update, (
                 (
-                    debug_colliders,
                     stop_time,
+                ),
+            ).in_set(UpdateOrder::Debug))
+            .add_systems(Update, (
+                (
+                    debug_colliders,
                 ).run_if(debug_mode_condition()),
             ).in_set(UpdateOrder::Debug))
         ;
