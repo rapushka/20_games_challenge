@@ -58,8 +58,15 @@ fn main() -> AppExit {
             },
         ))
 
-        // GameOver -> Initialize (tmp skip)
+        // GameOver -> Restart (tmp skip)
         .add_systems(OnEnter(AppState::GameOver), (
+            |mut next_state: ResMut<NextState<AppState>>| {
+                next_state.set(AppState::Restart);
+            },
+        ))
+
+        // Restart -> Initialize (tmp skip)
+        .add_systems(OnEnter(AppState::Restart), (
             |mut next_state: ResMut<NextState<AppState>>| {
                 next_state.set(AppState::Initialize);
             },

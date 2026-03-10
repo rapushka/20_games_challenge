@@ -22,6 +22,10 @@ impl Plugin for LevelPlugin {
             .add_systems(OnEnter(AppState::Initialize), (
                 spawn_level,
             ))
+
+            .add_systems(OnEnter(AppState::Restart), (
+                despawn_level,
+            ))
         ;
     }
 }
@@ -97,5 +101,15 @@ fn add_collider(mut entity: EntityCommands, tile_type: TileType) {
 
     if let Some((sizes, offset)) = maybe_isometry {
         entity.insert(Collider::new(sizes, offset));
+    }
+}
+
+fn despawn_level(
+    mut commands: Commands,
+    tiles: Query<Entity, With<RiverBank>>,
+) {
+    for tile in tiles {
+        println!("despawn");
+        commands.entity(tile).despawn();
     }
 }
