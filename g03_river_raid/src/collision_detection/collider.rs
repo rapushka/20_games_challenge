@@ -1,4 +1,4 @@
-use bevy::math::bounding::Aabb2d;
+use bevy::math::bounding::{Aabb2d, IntersectsVolume};
 use crate::position::WorldPosition;
 use crate::prelude::{Component, Gizmos, Query, Srgba, Transform, Vec2};
 
@@ -30,6 +30,13 @@ impl Collider {
 
     pub fn aabb(&self) -> Aabb2d {
         Aabb2d::new(self.center, self.half_size)
+    }
+
+    pub fn is_colliding(&self, other: &Self) -> bool {
+        let self_aabb = self.aabb();
+        let other_aabb = other.aabb();
+
+        self_aabb.intersects(&other_aabb)
     }
 }
 

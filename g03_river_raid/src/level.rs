@@ -8,6 +8,9 @@ use crate::random::Random;
 
 const TILE_SIZE: f32 = 128.0;
 
+#[derive(Component)]
+pub struct RiverBank;
+
 mod types;
 mod tiles;
 
@@ -47,6 +50,7 @@ fn spawn_level(
 
             let tile = commands.spawn((
                 Name::new("Tile"),
+                RiverBank,
                 create_sprite(&environment, &image, *tile_type),
                 WorldPosition::new(x, y),
                 ZOrder::Background,
