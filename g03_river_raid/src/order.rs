@@ -10,12 +10,15 @@ impl Plugin for SystemOrderPlugin {
                 UpdateOrder::Camera,
                 UpdateOrder::UpdateTransforms,
                 UpdateOrder::Debug,
+                UpdateOrder::Cleanups,
             ).chain())
 
             .configure_sets(FixedUpdate, (
-                FixedUpdateOrder::GameLogic,
+                FixedUpdateOrder::Movement,
                 FixedUpdateOrder::UpdateColliderPosition,
                 FixedUpdateOrder::CollisionDetection,
+                FixedUpdateOrder::HandleCollisions,
+                FixedUpdateOrder::ReactiveGameLogic,
             ).chain())
         ;
     }
@@ -23,9 +26,12 @@ impl Plugin for SystemOrderPlugin {
 
 #[derive(SystemSet, Debug, Clone, PartialEq, Eq, Hash)]
 pub enum FixedUpdateOrder {
-    GameLogic,
+    Movement,
     UpdateColliderPosition,
     CollisionDetection,
+    HandleCollisions,
+
+    ReactiveGameLogic,
 }
 
 #[derive(SystemSet, Debug, Clone, PartialEq, Eq, Hash)]
@@ -34,4 +40,5 @@ pub enum UpdateOrder {
     Camera,
     UpdateTransforms,
     Debug,
+    Cleanups,
 }

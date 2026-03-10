@@ -6,4 +6,5 @@ pub enum AppState {
     Bootstrap,
     Initialize,
     Playing,
+    GameOver,
 }

@@ -28,7 +28,7 @@ impl Plugin for CollisionDetectionPlugin {
 }
 
 fn check_collisions<TSubject: Component, TObject: Component>(
-    mut collision_messages: MessageWriter<Collision>,
+    mut collisions: MessageWriter<Collision>,
     subjects: Query<(Entity, &Collider), With<TSubject>>,
     objects: Query<(Entity, &Collider), With<TObject>>,
 ) {
@@ -39,7 +39,7 @@ fn check_collisions<TSubject: Component, TObject: Component>(
             }
 
             if subject_collider.is_colliding(object_collider) {
-                collision_messages.write(Collision::new(subject, object));
+                collisions.write(Collision::new(subject, object));
             }
         }
     }

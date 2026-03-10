@@ -6,6 +6,7 @@ use crate::prelude::*;
 
 pub mod plugin;
 mod movement;
+mod death;
 
 #[derive(Component)]
 pub struct Player;

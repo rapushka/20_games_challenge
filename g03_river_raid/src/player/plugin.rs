@@ -1,5 +1,6 @@
-use crate::order::{FixedUpdateOrder, UpdateOrder};
-use crate::player::movement::{move_player_x, player_fly_towards, update_scroll_speed_multiplier};
+use crate::order::*;
+use crate::player::death::*;
+use crate::player::movement::*;
 use super::*;
 
 pub struct PlayerPlugin;
@@ -16,7 +17,15 @@ impl Plugin for PlayerPlugin {
             .add_systems(FixedUpdate, (
                 move_player_x,
                 player_fly_towards,
-            ).in_set(FixedUpdateOrder::GameLogic))
+            ).in_set(FixedUpdateOrder::Movement))
+
+            .add_systems(FixedUpdate, (
+                on_player_collided_with_bank,
+            ).in_set(FixedUpdateOrder::HandleCollisions))
+
+            .add_systems(FixedUpdate, (
+                on_player_destroyed,
+            ).in_set(FixedUpdateOrder::ReactiveGameLogic))
         ;
     }
 }
