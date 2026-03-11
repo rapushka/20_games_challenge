@@ -1,5 +1,9 @@
 There will be short description of the task, i was working on before finishing the work for the day
 
+# Mar 11
+WIP: narrower bank. Added a few new tiles but not all.
+- [ ] add rest of tiles
+
 # Mar 10
 Just implemented collision detection for Player with River's Bank
 - [x] somehow ensure, that level is the same on each restart (mb reset seed on init?)
