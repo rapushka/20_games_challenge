@@ -2,7 +2,7 @@ There will be short description of the task, i was working on before finishing t
 
 # Mar 10
 Just implemented collision detection for Player with River's Bank
-- [ ] somehow ensure, that level is the same on each restart (mb reset seed on init?)
+- [x] somehow ensure, that level is the same on each restart (mb reset seed on init?)
 
 # Mar 09
 Just added colliders to player and river's bank

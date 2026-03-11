@@ -66,37 +66,38 @@ fn spawn_level(
 }
 
 fn create_sprite(tiles: &Res<EnvironmentTiles>, image: &Handle<Image>, tile_type: TileType) -> impl Bundle {
-    let create = |atlas: TextureAtlas| {
-        Sprite::from_atlas_image(
-            image.clone(),
-            atlas,
-        )
+    let texture_atlas = match tile_type {
+        TileType::Water => tiles.outer_center_center(),
+        TileType::BankOutLeftMiddle => tiles.outer_center_left(),
+        TileType::BankOutRightMiddle => tiles.outer_center_right(),
+        TileType::BankInLeftMiddle => tiles.inner_center_left(),
+        TileType::BankInRightMiddle => tiles.inner_center_right(),
+        TileType::BankInLeftBottom => tiles.inner_bottom_left(),
+        TileType::BankInRightBottom => tiles.inner_bottom_right(),
+        TileType::BankInLeftTop => tiles.inner_top_left(),
+        TileType::BankInRightTop => tiles.inner_top_right(),
+        TileType::BankOutLeftTop => tiles.outer_top_left(),
+        TileType::BankOutCenterTop => tiles.outer_top_center(),
+        TileType::BankOutRightTop => tiles.outer_top_right(),
     };
 
-    match tile_type {
-        TileType::Water => create(tiles.outer_center_center()),
-        TileType::BankOutLeftMiddle => create(tiles.outer_center_left()),
-        TileType::BankOutRightMiddle => create(tiles.outer_center_right()),
-        TileType::BankInLeftMiddle => create(tiles.inner_center_left()),
-        TileType::BankInRightMiddle => create(tiles.inner_center_right()),
-        TileType::BankLeftBottom => create(tiles.inner_bottom_left()),
-        TileType::BankRightBottom => create(tiles.inner_bottom_right()),
-        TileType::BankLeftTop => create(tiles.inner_top_left()),
-        TileType::BankRightTop => create(tiles.inner_top_right()),
-    }
+    Sprite::from_atlas_image(image.clone(), texture_atlas)
 }
 
 fn add_collider(mut entity: EntityCommands, tile_type: TileType) {
     let maybe_isometry = match tile_type {
         TileType::Water => None,
-        TileType::BankLeftBottom => Some((vec2(109.0, 110.0), vec2(10.0, 10.0))),
-        TileType::BankRightBottom => Some((vec2(109.0, 110.0), vec2(-10.0, 10.0))),
+        TileType::BankInLeftBottom => Some((vec2(109.0, 110.0), vec2(10.0, 10.0))),
+        TileType::BankInRightBottom => Some((vec2(109.0, 110.0), vec2(-10.0, 10.0))),
         TileType::BankOutLeftMiddle => Some((vec2(100.0, 128.0), vec2(-15.0, 0.0))),
         TileType::BankOutRightMiddle => Some((vec2(100.0, 128.0), vec2(15.0, 0.0))),
         TileType::BankInLeftMiddle => Some((vec2(109.0, 128.0), vec2(10.0, 0.0))),
         TileType::BankInRightMiddle => Some((vec2(109.0, 128.0), vec2(-10.0, 0.0))),
-        TileType::BankLeftTop => Some((vec2(109.0, 110.0), vec2(10.0, -10.0))),
-        TileType::BankRightTop => Some((vec2(109.0, 110.0), vec2(-10.0, -10.0))),
+        TileType::BankInLeftTop => Some((vec2(109.0, 110.0), vec2(10.0, -10.0))),
+        TileType::BankInRightTop => Some((vec2(109.0, 110.0), vec2(-10.0, -10.0))),
+        TileType::BankOutLeftTop => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
+        TileType::BankOutCenterTop => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
+        TileType::BankOutRightTop => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
     };
 
     if let Some((sizes, offset)) = maybe_isometry {
