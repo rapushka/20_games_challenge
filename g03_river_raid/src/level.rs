@@ -109,7 +109,6 @@ fn despawn_level(
     tiles: Query<Entity, With<RiverBank>>,
 ) {
     for tile in tiles {
-        println!("despawn");
         commands.entity(tile).despawn();
     }
 }

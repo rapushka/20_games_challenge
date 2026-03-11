@@ -20,6 +20,7 @@ pub fn on_player_collided_with_bank(
 
         let player = collision.subject();
         destroy_messages.write(Destroy(player));
+        break;
     }
 }
 
@@ -32,7 +33,6 @@ pub fn on_player_destroyed(
         let is_player = players.contains(*entity);
 
         if is_player {
-            println!("Ded!!!");
             app_state.set(AppState::GameOver);
         }
     }

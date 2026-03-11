@@ -17,3 +17,9 @@ impl Random {
         variants[random_index].clone()
     }
 }
+
+pub fn init_random(
+    mut commands: Commands,
+) {
+    commands.insert_resource(Random::default());
+}

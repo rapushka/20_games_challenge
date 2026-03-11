@@ -51,6 +51,10 @@ fn main() -> AppExit {
             },
         ).chain())
 
+        .add_systems(OnEnter(AppState::Initialize), (
+            init_random,
+        ))
+
         // Initialize -> Playing (tmp skip)
         .add_systems(OnEnter(AppState::Initialize), (
             |mut next_state: ResMut<NextState<AppState>>| {
