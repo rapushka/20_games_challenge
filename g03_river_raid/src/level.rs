@@ -79,6 +79,9 @@ fn create_sprite(tiles: &Res<EnvironmentTiles>, image: &Handle<Image>, tile_type
         TileType::BankOutLeftTop => tiles.outer_top_left(),
         TileType::BankOutCenterTop => tiles.outer_top_center(),
         TileType::BankOutRightTop => tiles.outer_top_right(),
+        TileType::BankOutLeftBottom => tiles.outer_bottom_left(),
+        TileType::BankOutRightBottom => tiles.outer_bottom_right(),
+        TileType::BankInCenterMiddle => tiles.inner_center_center(),
     };
 
     Sprite::from_atlas_image(image.clone(), texture_atlas)
@@ -98,6 +101,9 @@ fn add_collider(mut entity: EntityCommands, tile_type: TileType) {
         TileType::BankOutLeftTop => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
         TileType::BankOutCenterTop => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
         TileType::BankOutRightTop => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
+        TileType::BankOutLeftBottom => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
+        TileType::BankOutRightBottom => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
+        TileType::BankInCenterMiddle => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
     };
 
     if let Some((sizes, offset)) = maybe_isometry {

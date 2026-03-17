@@ -16,18 +16,23 @@ pub enum RiverLineType {
 pub enum TileType {
     Water,
 
+    // right
     BankOutLeftMiddle,
     BankOutLeftTop,
     BankOutCenterTop,
     BankOutRightTop,
     BankOutRightMiddle,
+    BankOutLeftBottom,
+    BankOutRightBottom,
 
+    // left
     BankInLeftBottom,
     BankInRightBottom,
     BankInLeftMiddle,
     BankInRightMiddle,
     BankInLeftTop,
     BankInRightTop,
+    BankInCenterMiddle,
 }
 
 impl RiverLineType {
@@ -67,6 +72,9 @@ impl RiverLineType {
         let bolt = TileType::BankOutLeftTop;
         let boct = TileType::BankOutCenterTop;
         let bort = TileType::BankOutRightTop;
+        let bolb = TileType::BankOutLeftBottom;
+        let borb = TileType::BankOutRightBottom;
+        let bicm = TileType::BankInCenterMiddle;
 
         match self {
             RiverLineType::Standard => vec![bolm, wat, wat, wat, wat, wat, wat, borm],
@@ -74,8 +82,8 @@ impl RiverLineType {
             RiverLineType::IslandsMid => vec![bolm, wat, wat, bilm, birm, wat, wat, borm],
             RiverLineType::IslandsEnd => vec![bolm, wat, wat, bilt, birt, wat, wat, borm],
             RiverLineType::NarrowStart => vec![bolt, birb, wat, wat, wat, wat, bilb, bort],
-            RiverLineType::NarrowMid => vec![bolm, bolm, wat, wat, wat, wat, borm, borm], // TODO: grass
-            RiverLineType::NarrowEnd => vec![bolt, birb, wat, wat, wat, wat, bilb, bort], // TODO: mirror
+            RiverLineType::NarrowMid => vec![bicm, bolm, wat, wat, wat, wat, borm, bicm],
+            RiverLineType::NarrowEnd => vec![bolb, birt, wat, wat, wat, wat, bilt, borb],
         }
     }
 }
