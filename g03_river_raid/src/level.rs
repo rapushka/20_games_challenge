@@ -103,7 +103,7 @@ fn add_collider(mut entity: EntityCommands, tile_type: TileType) {
         TileType::BankOutRightTop => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
         TileType::BankOutLeftBottom => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
         TileType::BankOutRightBottom => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
-        TileType::BankInCenterMiddle => Some((vec2(109.0, 109.0), vec2(0.0, 0.0))), // TODO: adjust size
+        TileType::BankInCenterMiddle => Some((vec2(128.0, 128.0), vec2(0.0, 0.0))),
     };
 
     if let Some((sizes, offset)) = maybe_isometry {
