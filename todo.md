@@ -1,5 +1,9 @@
 There will be short description of the task, i was working on before finishing the work for the day
 
+# Apr 11
+barely started implementing the enemies
+- [ ] spawn enemies somehow
+
 # Mar 11
 WIP: narrower bank. Added a few new tiles but not all.
 - [ ] add rest of tiles

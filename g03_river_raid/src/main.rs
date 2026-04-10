@@ -2,6 +2,7 @@ use crate::camera::*;
 use crate::collision_detection::*;
 use crate::debug::*;
 use crate::destroy::{Destroy, DestructionPlugin};
+use crate::enemy::plugin::EnemyPlugin;
 use crate::level::*;
 use crate::order::*;
 use crate::player::plugin::*;
@@ -17,6 +18,7 @@ mod order;
 mod position;
 mod app_state;
 mod player;
+mod enemy;
 mod camera;
 mod level;
 mod random;
@@ -30,6 +32,7 @@ fn main() -> AppExit {
             DefaultPlugins,
             SystemOrderPlugin,
             PlayerPlugin,
+            EnemyPlugin,
             CameraPlugin,
             LevelPlugin,
             CollisionDetectionPlugin,
