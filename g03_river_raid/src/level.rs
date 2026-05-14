@@ -4,9 +4,8 @@ use crate::prelude::*;
 
 pub use tiles::*;
 use crate::collision_detection::Collider;
+use crate::constants::*;
 use crate::random::Random;
-
-const TILE_SIZE: f32 = 128.0;
 
 #[derive(Component)]
 pub struct RiverBank;
@@ -23,7 +22,7 @@ impl Plugin for LevelPlugin {
                 spawn_level,
             ))
 
-            .add_systems(OnEnter(AppState::Restart), (
+            .add_systems(OnEnter(AppState::Restarting), (
                 despawn_level,
             ))
         ;
@@ -49,8 +48,8 @@ fn spawn_level(
             let i = i as f32;
             let offset_x = -450.0;
 
-            let x = i * TILE_SIZE + offset_x;
-            let y = line_index * TILE_SIZE;
+            let x = i * level::TILE_SIZE + offset_x;
+            let y = line_index * level::TILE_SIZE;
 
             let tile = commands.spawn((
                 Name::new("Tile"),

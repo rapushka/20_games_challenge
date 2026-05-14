@@ -17,3 +17,7 @@ pub mod input {
     pub const TOGGLE_DEBUG: KeyCode = KeyCode::Backquote;
     pub const DEBUG_STOP_TIME: KeyCode = KeyCode::KeyT;
 }
+
+pub mod level {
+    pub const TILE_SIZE: f32 = 128.0;
+}

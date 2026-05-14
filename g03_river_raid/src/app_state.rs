@@ -7,5 +7,5 @@ pub enum AppState {
     Initialize,
     Playing,
     GameOver,
-    Restart,
+    Restarting,
 }

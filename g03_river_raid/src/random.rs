@@ -1,3 +1,4 @@
+use std::ops::Range;
 use rand::prelude::*;
 use crate::prelude::*;
 
@@ -15,6 +16,10 @@ impl Random {
     pub fn pick<T: Clone>(&mut self, variants: Vec<T>) -> T {
         let random_index = self.random_range(0..variants.len());
         variants[random_index].clone()
+    }
+
+    pub fn in_range(&mut self, range: &Range<i32>) -> i32 {
+        self.0.random_range(range.clone())
     }
 }
 
