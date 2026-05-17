@@ -43,6 +43,6 @@ fn spawn_jet(
         Sprite::from_image(image),
         WorldPosition::new(x, y),
         ZOrder::Enemies,
-        Collider::new(vec2(25.0, 85.0), vec2(0.0, -10.0)), // TODO: update collider
+        Collider::new(vec2(110.0, 40.0), vec2(0.0, 0.0)),
     ));
 }

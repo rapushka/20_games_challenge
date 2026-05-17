@@ -1,10 +1,11 @@
 use bevy::math::bounding::{Aabb2d, IntersectsVolume};
+use bevy::prelude::Reflect;
 use crate::position::WorldPosition;
 use crate::prelude::{Component, Gizmos, Query, Srgba, Transform, Vec2};
 
 pub const FUCHSIA: Srgba = Srgba::rgb(1.0, 0.0, 1.0);
 
-#[derive(Component)]
+#[derive(Component, Reflect)]
 pub struct Collider {
     half_size: Vec2,
     center: Vec2,
