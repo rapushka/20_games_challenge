@@ -30,8 +30,10 @@ fn spawn_jets_on_level(
     for line_index in 0..100 {
         counter -= 1;
 
+        let y = utils::index_to_position(line_index);
+
         if counter <= 0 {
-            spawn_jet(&mut commands, &asset_server);
+            spawn_jet(y, &mut commands, &asset_server);
 
             counter = random.in_range(&range_between_jets);
         }
@@ -39,18 +41,20 @@ fn spawn_jets_on_level(
 }
 
 fn spawn_jet(
+    y: f32,
     commands: &mut Commands,
     asset_server: &Res<AssetServer>,
 ) {
     let image = asset_server.load(asset_path::ENEMY_JET);
+    let x = 0.0; // TODO: put jets offscreen
 
     commands.spawn((
         Name::new("Enemy_Jet"),
         Enemy,
         Jet,
         Sprite::from_image(image),
-        WorldPosition::ZERO, // TODO
+        WorldPosition::new(x, y),
         ZOrder::Enemies,
-        Collider::new(vec2(25.0, 85.0), vec2(0.0, -10.0)), // TODO
+        Collider::new(vec2(25.0, 85.0), vec2(0.0, -10.0)), // TODO: update collider
     ));
 }

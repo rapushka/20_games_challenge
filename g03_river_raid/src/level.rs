@@ -2,10 +2,9 @@ use crate::level::types::{RiverLineType, TileType};
 use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 
-pub use tiles::*;
 use crate::collision_detection::Collider;
-use crate::constants::*;
 use crate::random::Random;
+pub use tiles::*;
 
 #[derive(Component)]
 pub struct RiverBank;
