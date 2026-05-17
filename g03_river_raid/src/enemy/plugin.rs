@@ -1,4 +1,3 @@
-use crate::enemy::plugin::jet_enemy::JetEnemyPlugin;
 use crate::prelude::*;
 
 #[derive(Component)]
@@ -11,7 +10,9 @@ pub struct EnemyPlugin;
 impl Plugin for EnemyPlugin {
     fn build(&self, app: &mut App) {
         app
-            .add_plugins(JetEnemyPlugin)
+            .add_systems(OnEnter(AppState::Initialize), (
+                jet_enemy::spawn_jets_on_level,
+            ))
         ;
     }
 }

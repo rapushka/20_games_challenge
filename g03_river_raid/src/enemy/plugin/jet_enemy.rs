@@ -7,19 +7,7 @@ use crate::random::Random;
 #[derive(Component)]
 pub struct Jet;
 
-pub struct JetEnemyPlugin;
-
-impl Plugin for JetEnemyPlugin {
-    fn build(&self, app: &mut App) {
-        app
-            .add_systems(OnEnter(AppState::Initialize), (
-                spawn_jets_on_level,
-            ))
-        ;
-    }
-}
-
-fn spawn_jets_on_level(
+pub fn spawn_jets_on_level(
     mut commands: Commands,
     asset_server: Res<AssetServer>,
     mut random: ResMut<Random>,
