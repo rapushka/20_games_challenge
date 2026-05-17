@@ -15,6 +15,8 @@ impl WorldPosition {
 #[repr(i32)]
 pub enum ZOrder {
     Background = -1,
+
+    Enemies = 9,
     Player = 10,
 }
 

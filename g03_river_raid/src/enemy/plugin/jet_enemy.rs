@@ -49,10 +49,8 @@ fn spawn_jet(
         Enemy,
         Jet,
         Sprite::from_image(image),
-        WorldPosition::ZERO,
-        ZOrder::Player,
-        ( // Collision Detection
-          Collider::new(vec2(25.0, 85.0), vec2(0.0, -10.0)),
-        ),
+        WorldPosition::ZERO, // TODO
+        ZOrder::Enemies,
+        Collider::new(vec2(25.0, 85.0), vec2(0.0, -10.0)), // TODO
     ));
 }
