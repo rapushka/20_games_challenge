@@ -9,6 +9,10 @@ impl WorldPosition {
     pub const fn new(x: f32, y: f32) -> Self {
         Self(vec2(x, y))
     }
+
+    pub const fn from_vec2(value: Vec2) -> Self {
+        Self(value)
+    }
 }
 
 #[derive(Component, Copy, Clone)]

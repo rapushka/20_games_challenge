@@ -44,12 +44,10 @@ fn spawn_level(
         let tiles = line.get_tiles();
 
         for (i, tile_type) in tiles.iter().enumerate() {
-            let line_index = line_index as f32;
-            let i = i as f32;
-            let offset_x = -450.0;
+            let level_half_width = -450.0;
 
-            let x = i * level::TILE_SIZE + offset_x;
-            let y = line_index * level::TILE_SIZE;
+            let x = utils::index_to_position(i as i32) + level_half_width;
+            let y = utils::index_to_position(line_index);
 
             let tile = commands.spawn((
                 Name::new("Tile"),

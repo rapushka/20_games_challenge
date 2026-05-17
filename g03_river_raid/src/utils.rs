@@ -1,4 +1,5 @@
 use bevy::ecs::query::QuerySingleError;
+use crate::constants::level;
 use crate::prelude::*;
 
 const ERROR_PINK: Color = Color::srgb_u8(255, 0, 255);
@@ -24,4 +25,8 @@ impl<T> ResultExt<T> for Result<T, QuerySingleError> {
             Err(QuerySingleError::MultipleEntities(_)) => panic!("Multiple Entities!"),
         }
     }
+}
+
+pub fn index_to_position(index: i32) -> f32 {
+    index as f32 * level::TILE_SIZE
 }
