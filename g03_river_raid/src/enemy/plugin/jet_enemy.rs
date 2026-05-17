@@ -4,8 +4,13 @@ use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 use crate::random::Random;
 
+mod jet_direction;
+pub use jet_direction::*;
+
 #[derive(Component)]
-pub struct Jet;
+pub struct Jet {
+    direction: JetDirection,
+}
 
 pub fn spawn_jets_on_level(
     mut commands: Commands,
@@ -21,8 +26,9 @@ pub fn spawn_jets_on_level(
         let y = utils::index_to_position(line_index);
 
         if counter <= 0 {
-            spawn_jet(y, &mut commands, &asset_server);
+            let direction = JetDirection::new_random(&mut random);
 
+            spawn_jet(y, direction, &mut commands, &asset_server);
             counter = random.in_range(&range_between_jets);
         }
     }
@@ -30,17 +36,21 @@ pub fn spawn_jets_on_level(
 
 fn spawn_jet(
     y: f32,
+    direction: JetDirection,
     commands: &mut Commands,
     asset_server: &Res<AssetServer>,
 ) {
     let image = asset_server.load(asset_path::ENEMY_JET);
     let x = 0.0; // TODO: put jets offscreen
 
+    let mut sprite = Sprite::from_image(image);
+    sprite.flip_x = direction == JetDirection::Right;
+
     commands.spawn((
         Name::new("Enemy_Jet"),
         Enemy,
-        Jet,
-        Sprite::from_image(image),
+        Jet { direction },
+        sprite,
         WorldPosition::new(x, y),
         ZOrder::Enemies,
         Collider::new(vec2(110.0, 40.0), vec2(0.0, 0.0)),
