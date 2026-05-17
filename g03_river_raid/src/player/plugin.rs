@@ -20,7 +20,7 @@ impl Plugin for PlayerPlugin {
             ).in_set(FixedUpdateOrder::Movement))
 
             .add_systems(FixedUpdate, (
-                on_player_collided_with_bank,
+                on_player_collision_with_obstacle,
             ).in_set(FixedUpdateOrder::HandleCollisions))
 
             .add_systems(FixedUpdate, (

@@ -2,7 +2,7 @@ use crate::level::types::{RiverLineType, TileType};
 use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 
-use crate::collision_detection::Collider;
+use crate::collision_detection::{Collider, Obstacle};
 use crate::random::Random;
 pub use tiles::*;
 
@@ -51,6 +51,7 @@ fn spawn_level(
             let tile = commands.spawn((
                 Name::new("Tile"),
                 RiverBank,
+                Obstacle,
                 create_sprite(&environment, &image, *tile_type),
                 WorldPosition::new(x, y),
                 ZOrder::Background,

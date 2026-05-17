@@ -1,13 +1,16 @@
-use crate::prelude::*;
-use crate::level::RiverBank;
 use crate::order::*;
 use crate::player::Player;
+use crate::prelude::*;
 
 pub use collider::*;
 pub use collision::*;
 
 mod collider;
 mod collision;
+
+// if player collides with an Obstacle - player dies!
+#[derive(Component)]
+pub struct Obstacle;
 
 pub struct CollisionDetectionPlugin;
 
@@ -21,7 +24,7 @@ impl Plugin for CollisionDetectionPlugin {
             ).in_set(FixedUpdateOrder::UpdateColliderPosition))
 
             .add_systems(FixedUpdate, (
-                check_collisions::<Player, RiverBank>,
+                check_collisions::<Player, Obstacle>,
             ).in_set(FixedUpdateOrder::CollisionDetection))
         ;
     }

@@ -1,4 +1,4 @@
-use crate::collision_detection::Collider;
+use crate::collision_detection::{Collider, Obstacle};
 use crate::enemy::plugin::Enemy;
 use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
@@ -17,7 +17,7 @@ pub fn spawn_jets_on_level(
     asset_server: Res<AssetServer>,
     mut random: ResMut<Random>,
 ) {
-    let range_between_jets = 5..15;
+    let range_between_jets = 2..10;
     let mut counter = random.in_range(&range_between_jets);
 
     for line_index in 0..100 {
@@ -50,6 +50,7 @@ fn spawn_jet(
         Name::new("Enemy_Jet"),
         Enemy,
         Jet { direction },
+        Obstacle,
         sprite,
         WorldPosition::new(x, y),
         ZOrder::Enemies,

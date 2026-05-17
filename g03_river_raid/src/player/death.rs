@@ -1,20 +1,20 @@
-use crate::collision_detection::Collision;
+use crate::collision_detection::{Collision, Obstacle};
 use crate::destroy::Destroy;
 use crate::level::RiverBank;
 use crate::player::Player;
 use crate::prelude::*;
 
-pub fn on_player_collided_with_bank(
+pub fn on_player_collision_with_obstacle(
     mut collisions: MessageReader<Collision>,
     mut destroy_messages: MessageWriter<Destroy>,
     players: Query<(), With<Player>>,
-    river_banks: Query<(), With<RiverBank>>,
+    obstacles: Query<(), With<Obstacle>>,
 ) {
     for collision in collisions.read() {
         let subject_is_player = players.contains(collision.subject());
-        let object_is_river_bank = river_banks.contains(collision.object());
+        let object_is_obstacle = obstacles.contains(collision.object());
 
-        if !subject_is_player || !object_is_river_bank {
+        if !subject_is_player || !object_is_obstacle {
             continue;
         }
 
