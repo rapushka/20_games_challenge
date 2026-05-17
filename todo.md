@@ -1,5 +1,8 @@
 There will be short description of the task, i was working on before finishing the work for the day
 
+# May 14
+started making spawn for jets
+
 # Apr 11
 barely started implementing the enemies
 - [ ] spawn enemies somehow

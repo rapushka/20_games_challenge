@@ -1,6 +1,9 @@
 use crate::enemy::plugin::jet_enemy::JetEnemyPlugin;
 use crate::prelude::*;
 
+#[derive(Component)]
+pub struct Enemy;
+
 mod jet_enemy;
 
 pub struct EnemyPlugin;

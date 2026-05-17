@@ -1,7 +1,7 @@
 use crate::camera::*;
 use crate::collision_detection::*;
 use crate::debug::*;
-use crate::destroy::{Destroy, DestructionPlugin};
+use crate::destroy::DestructionPlugin;
 use crate::enemy::plugin::EnemyPlugin;
 use crate::level::*;
 use crate::order::*;
