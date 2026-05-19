@@ -26,9 +26,11 @@ pub mod level {
 }
 
 pub mod enemies {
+    use crate::constants::level::LEVEL_HALF_WIDTH;
+
     pub const JET_MOVEMENT_SPEED: f32 = 1_000.0;
 
-    pub const JET_SPAWN_OFFSET: f32 = 250.0;
+    pub const JET_OFFSCREEN_POSITION: f32 = LEVEL_HALF_WIDTH + 250.0;
 }
 
 pub const ACTIVE_OBJECTS_DISTANCE: f32 = 720.0;

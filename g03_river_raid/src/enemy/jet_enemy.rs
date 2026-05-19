@@ -56,7 +56,9 @@ fn spawn_jet(
     asset_server: &Res<AssetServer>,
 ) {
     let image = asset_server.load(asset_path::ENEMY_JET);
-    let spawn_offset = constants::level::LEVEL_HALF_WIDTH + constants::enemies::JET_SPAWN_OFFSET;
+    let spawn_offset = constants::enemies::JET_OFFSCREEN_POSITION;
+
+    // Direction is negated since we need the direction FROM which jet will move
     let x = -direction.as_f32() * spawn_offset;
 
     let mut sprite = Sprite::from_image(image);
