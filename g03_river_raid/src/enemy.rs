@@ -21,6 +21,10 @@ impl Plugin for EnemyPlugin {
                 jet_enemy::move_jets,
             ).in_set(FixedUpdateOrder::Movement))
 
+            .add_systems(FixedUpdate, (
+                jet_enemy::despawn_offscreen_jets,
+            ).in_set(FixedUpdateOrder::ReactiveGameLogic))
+
             .add_systems(OnEnter(AppState::Restarting), (
                 despawn_all_enemies,
             ))

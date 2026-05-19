@@ -49,6 +49,24 @@ pub fn move_jets(
     }
 }
 
+pub fn despawn_offscreen_jets(
+    mut commands: Commands,
+    jets: Query<(Entity, &Jet, &mut WorldPosition)>,
+) {
+    for (entity, Jet { direction }, position) in jets {
+        let offscreen_x = constants::enemies::JET_OFFSCREEN_POSITION;
+
+        let should_despawn = match direction {
+            JetDirection::Left => position.x <= offscreen_x,
+            JetDirection::Right => position.x >= offscreen_x,
+        };
+
+        if should_despawn {
+            commands.entity(entity).despawn();
+        }
+    }
+}
+
 fn spawn_jet(
     y: f32,
     direction: JetDirection,
