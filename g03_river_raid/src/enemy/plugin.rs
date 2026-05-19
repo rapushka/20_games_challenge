@@ -1,3 +1,4 @@
+use crate::level::RiverBank;
 use crate::prelude::*;
 
 #[derive(Component)]
@@ -13,6 +14,19 @@ impl Plugin for EnemyPlugin {
             .add_systems(OnEnter(AppState::Initialize), (
                 jet_enemy::spawn_jets_on_level,
             ))
+
+            .add_systems(OnEnter(AppState::Restarting), (
+                despawn_all_enemies,
+            ))
         ;
+    }
+}
+
+fn despawn_all_enemies(
+    mut commands: Commands,
+    tiles: Query<Entity, With<Enemy>>,
+) {
+    for tile in tiles {
+        commands.entity(tile).despawn();
     }
 }
