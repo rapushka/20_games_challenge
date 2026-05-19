@@ -31,10 +31,10 @@ fn update_active_flag(
 ) {
     for player_position in players {
         for (object_entity, object_position) in dynamic_objects {
-            let distance_squared = object_position.distance_squared(**player_position);
-            let max_distance_squared = constants::ACTIVE_OBJECTS_DISTANCE.powi(2);
+            let distance = object_position.y - player_position.y;
+            let max_distance = constants::ACTIVE_OBJECTS_DISTANCE;
 
-            if distance_squared < max_distance_squared {
+            if distance < max_distance {
                 commands.entity(object_entity).insert(Active);
             } else {
                 commands.entity(object_entity).remove::<Active>();
