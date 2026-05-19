@@ -1,11 +1,12 @@
 use crate::collision_detection::{Collider, Obstacle};
-use crate::enemy::plugin::Enemy;
 use crate::position::{WorldPosition, ZOrder};
 use crate::prelude::*;
 use crate::random::Random;
 
 mod jet_direction;
 pub use jet_direction::*;
+use crate::active_flag::Active;
+use crate::enemy::Enemy;
 
 #[derive(Component)]
 pub struct Jet {
@@ -35,7 +36,7 @@ pub fn spawn_jets_on_level(
 }
 
 pub fn move_jets(
-    jets: Query<(&Jet, &mut WorldPosition)>,
+    jets: Query<(&Jet, &mut WorldPosition), With<Active>>,
     time: Res<Time<Virtual>>,
 ) {
     let speed = constants::enemies::JET_MOVEMENT_SPEED;

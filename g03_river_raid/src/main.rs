@@ -1,8 +1,9 @@
+use crate::active_flag::ActiveFlagPlugin;
 use crate::camera::*;
 use crate::collision_detection::*;
 use crate::debug::*;
 use crate::destroy::DestructionPlugin;
-use crate::enemy::plugin::EnemyPlugin;
+use crate::enemy::EnemyPlugin;
 use crate::level::*;
 use crate::order::*;
 use crate::player::plugin::*;
@@ -25,6 +26,7 @@ mod random;
 mod debug;
 mod collision_detection;
 mod destroy;
+mod active_flag;
 
 fn main() -> AppExit {
     App::new()
@@ -37,6 +39,7 @@ fn main() -> AppExit {
             LevelPlugin,
             CollisionDetectionPlugin,
             DestructionPlugin,
+            ActiveFlagPlugin,
 
             // debug
             #[cfg(debug_assertions)]

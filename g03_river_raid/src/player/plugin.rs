@@ -17,7 +17,7 @@ impl Plugin for PlayerPlugin {
             .add_systems(FixedUpdate, (
                 move_player_x,
                 player_fly_towards,
-            ).in_set(FixedUpdateOrder::MoveObjects))
+            ).in_set(FixedUpdateOrder::Movement))
 
             .add_systems(FixedUpdate, (
                 on_player_collision_with_obstacle,

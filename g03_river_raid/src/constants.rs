@@ -25,3 +25,5 @@ pub mod level {
 pub mod enemies {
     pub const JET_MOVEMENT_SPEED: f32 = 500.0;
 }
+
+pub const ACTIVE_OBJECTS_DISTANCE: f32 = 100.0;
