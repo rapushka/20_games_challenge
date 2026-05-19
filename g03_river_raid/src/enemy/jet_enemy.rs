@@ -5,7 +5,7 @@ use crate::random::Random;
 
 mod jet_direction;
 use crate::active_flag::Active;
-use crate::enemy::Enemy;
+use crate::enemy::{Enemy, MovementSpeed};
 pub use jet_direction::*;
 
 #[derive(Component)]
@@ -27,22 +27,22 @@ pub fn spawn_jets_on_level(
         let y = utils::index_to_position(line_index);
 
         if counter <= 0 {
-            let direction = JetDirection::new_random(&mut random);
+            let direction = JetDirection::new_random_direction(&mut random);
+            let speed = random.in_range_f32(&constants::enemies::JET_MOVEMENT_SPEED_RANGE);
 
-            spawn_jet(y, direction, &mut commands, &asset_server);
+            spawn_jet(y, direction, speed, &mut commands, &asset_server);
             counter = random.in_range(&range_between_jets);
         }
     }
 }
 
 pub fn move_jets(
-    jets: Query<(&Jet, &mut WorldPosition), With<Active>>,
+    jets: Query<(&Jet, &mut WorldPosition, &MovementSpeed), With<Active>>,
     time: Res<Time<Virtual>>,
 ) {
-    let speed = constants::enemies::JET_MOVEMENT_SPEED;
     let delta_time = time.delta_secs();
 
-    for (Jet { direction }, mut position) in jets {
+    for (Jet { direction }, mut position, MovementSpeed(speed)) in jets {
         let direction = direction.as_f32();
 
         position.x += direction * speed * delta_time;
@@ -70,6 +70,7 @@ pub fn despawn_offscreen_jets(
 fn spawn_jet(
     y: f32,
     direction: JetDirection,
+    speed: f32,
     commands: &mut Commands,
     asset_server: &Res<AssetServer>,
 ) {
@@ -85,6 +86,7 @@ fn spawn_jet(
     commands.spawn((
         Name::new("Enemy_Jet"),
         Enemy,
+        MovementSpeed(speed),
         Jet { direction },
         Obstacle,
         sprite,

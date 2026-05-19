@@ -7,7 +7,7 @@ pub enum JetDirection {
 }
 
 impl JetDirection {
-    pub fn new_random(random: &mut Random) -> Self {
+    pub fn new_random_direction(random: &mut Random) -> Self {
         if random.flip_a_coin() {
             JetDirection::Left
         } else {

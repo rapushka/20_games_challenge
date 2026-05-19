@@ -22,6 +22,10 @@ impl Random {
         self.0.random_range(range.clone())
     }
 
+    pub fn in_range_f32(&mut self, range: &Range<f32>) -> f32 {
+        self.0.random_range(range.clone())
+    }
+
     pub fn flip_a_coin(&mut self) -> bool {
         self.0.random_bool(0.5)
     }

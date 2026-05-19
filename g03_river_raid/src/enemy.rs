@@ -6,6 +6,9 @@ use crate::prelude::*;
 #[require(DynamicObject)]
 pub struct Enemy;
 
+#[derive(Component)]
+pub struct MovementSpeed(f32);
+
 mod jet_enemy;
 
 pub struct EnemyPlugin;

@@ -26,9 +26,10 @@ pub mod level {
 }
 
 pub mod enemies {
+    use std::ops::Range;
     use crate::constants::level::LEVEL_HALF_WIDTH;
 
-    pub const JET_MOVEMENT_SPEED: f32 = 1_000.0;
+    pub const JET_MOVEMENT_SPEED_RANGE: Range<f32> = 750.0..1250.0;
 
     pub const JET_OFFSCREEN_POSITION: f32 = LEVEL_HALF_WIDTH + 250.0;
 }
