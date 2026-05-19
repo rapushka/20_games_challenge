@@ -4,9 +4,9 @@ use crate::prelude::*;
 use crate::random::Random;
 
 mod jet_direction;
-pub use jet_direction::*;
 use crate::active_flag::Active;
 use crate::enemy::Enemy;
+pub use jet_direction::*;
 
 #[derive(Component)]
 pub struct Jet {
@@ -56,7 +56,8 @@ fn spawn_jet(
     asset_server: &Res<AssetServer>,
 ) {
     let image = asset_server.load(asset_path::ENEMY_JET);
-    let x = 0.0; // TODO: put jets offscreen
+    let spawn_offset = constants::level::LEVEL_HALF_WIDTH + constants::enemies::JET_SPAWN_OFFSET;
+    let x = -direction.as_f32() * spawn_offset;
 
     let mut sprite = Sprite::from_image(image);
     sprite.flip_x = direction == JetDirection::Right;

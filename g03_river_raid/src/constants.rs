@@ -20,10 +20,15 @@ pub mod input {
 
 pub mod level {
     pub const TILE_SIZE: f32 = 128.0;
+
+    pub const LEVEL_WIDTH: f32 = 900.0;
+    pub const LEVEL_HALF_WIDTH: f32 = LEVEL_WIDTH * 0.5;
 }
 
 pub mod enemies {
     pub const JET_MOVEMENT_SPEED: f32 = 1_000.0;
+
+    pub const JET_SPAWN_OFFSET: f32 = 250.0;
 }
 
 pub const ACTIVE_OBJECTS_DISTANCE: f32 = 720.0;

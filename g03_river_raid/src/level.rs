@@ -43,9 +43,7 @@ fn spawn_level(
         let tiles = line.get_tiles();
 
         for (i, tile_type) in tiles.iter().enumerate() {
-            let level_half_width = -450.0;
-
-            let x = utils::index_to_position(i as i32) + level_half_width;
+            let x = utils::index_to_position(i as i32) - constants::level::LEVEL_HALF_WIDTH;
             let y = utils::index_to_position(line_index);
 
             let tile = commands.spawn((
