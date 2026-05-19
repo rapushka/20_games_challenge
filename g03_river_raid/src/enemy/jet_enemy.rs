@@ -57,7 +57,7 @@ pub fn despawn_offscreen_jets(
         let offscreen_x = constants::enemies::JET_OFFSCREEN_POSITION;
 
         let should_despawn = match direction {
-            JetDirection::Left => position.x <= offscreen_x,
+            JetDirection::Left => position.x <= -offscreen_x,
             JetDirection::Right => position.x >= offscreen_x,
         };
 

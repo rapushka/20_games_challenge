@@ -1,6 +1,6 @@
 use crate::random::Random;
 
-#[derive(Eq, PartialEq)]
+#[derive(Eq, PartialEq, Debug)]
 pub enum JetDirection {
     Left,
     Right,
