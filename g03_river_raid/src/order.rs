@@ -14,7 +14,7 @@ impl Plugin for SystemOrderPlugin {
             ).chain())
 
             .configure_sets(FixedUpdate, (
-                FixedUpdateOrder::Movement,
+                FixedUpdateOrder::MoveObjects,
                 FixedUpdateOrder::UpdateColliderPosition,
                 FixedUpdateOrder::CollisionDetection,
                 FixedUpdateOrder::HandleCollisions,
@@ -26,7 +26,7 @@ impl Plugin for SystemOrderPlugin {
 
 #[derive(SystemSet, Debug, Clone, PartialEq, Eq, Hash)]
 pub enum FixedUpdateOrder {
-    Movement,
+    MoveObjects,
     UpdateColliderPosition,
     CollisionDetection,
     HandleCollisions,

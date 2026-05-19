@@ -34,6 +34,20 @@ pub fn spawn_jets_on_level(
     }
 }
 
+pub fn move_jets(
+    jets: Query<(&Jet, &mut WorldPosition)>,
+    time: Res<Time<Virtual>>,
+) {
+    let speed = constants::enemies::JET_MOVEMENT_SPEED;
+    let delta_time = time.delta_secs();
+
+    for (Jet { direction }, mut position) in jets {
+        let direction = direction.as_f32();
+
+        position.x += direction * speed * delta_time;
+    }
+}
+
 fn spawn_jet(
     y: f32,
     direction: JetDirection,

@@ -1,4 +1,5 @@
 use crate::level::RiverBank;
+use crate::order::FixedUpdateOrder;
 use crate::prelude::*;
 
 #[derive(Component)]
@@ -14,6 +15,10 @@ impl Plugin for EnemyPlugin {
             .add_systems(OnEnter(AppState::Initialize), (
                 jet_enemy::spawn_jets_on_level,
             ))
+
+            .add_systems(FixedUpdate, (
+                jet_enemy::move_jets,
+            ).in_set(FixedUpdateOrder::MoveObjects))
 
             .add_systems(OnEnter(AppState::Restarting), (
                 despawn_all_enemies,

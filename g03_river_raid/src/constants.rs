@@ -21,3 +21,7 @@ pub mod input {
 pub mod level {
     pub const TILE_SIZE: f32 = 128.0;
 }
+
+pub mod enemies {
+    pub const JET_MOVEMENT_SPEED: f32 = 500.0;
+}

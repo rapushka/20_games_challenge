@@ -14,4 +14,11 @@ impl JetDirection {
             JetDirection::Right
         }
     }
+
+    pub fn as_f32(&self) -> f32 {
+        match self {
+            JetDirection::Left => -1.0,
+            JetDirection::Right => 1.0,
+        }
+    }
 }
